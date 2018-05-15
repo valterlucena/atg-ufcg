@@ -55,7 +55,8 @@ public class Aresta {
     @Override
     public String toString() {
         String saida = "";
-        saida = this.getInicio().toString() + " --- " + this.getFim().toString();
+        saida = this.getInicio().toString() + " -- " +
+                String.valueOf(this.getPeso()) + " -- " + this.getFim().toString();
         return saida;
     }
 }

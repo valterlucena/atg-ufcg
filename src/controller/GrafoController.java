@@ -10,6 +10,8 @@ import java.util.Scanner;
 
 public class GrafoController implements GraphLibrary {
 
+    private static final int ZERO = 0;
+
     private Scanner getScanner(String path) {
         File file = new File(path);
         Scanner scanner = null;
@@ -22,8 +24,7 @@ public class GrafoController implements GraphLibrary {
         return scanner;
     }
 
-    @Override
-    public Grafo readGraph(String path) {
+    private Grafo readGraph(String path, boolean isWeighted) {
         Scanner leitor = getScanner(path);
         int quantidadeDeVertices = Integer.valueOf(leitor.nextLine());
         Grafo grafo = new Grafo();
@@ -32,11 +33,22 @@ public class GrafoController implements GraphLibrary {
             String[] argumentos = arestaAtual.split(" ");
             Vertice inicio = new Vertice(Integer.parseInt(argumentos[0]));
             Vertice fim = new Vertice(Integer.parseInt(argumentos[1]));
-            Aresta aresta = new Aresta(inicio, fim, 0); //peso default por enquanto
+            double peso = isWeighted ? Double.parseDouble(argumentos[2]) : ZERO;
+            Aresta aresta = new Aresta(inicio, fim, peso);
             grafo.getArestas().add(aresta);
         }
 
         return grafo;
+    }
+
+    @Override
+    public Grafo readGraph(String path) {
+        return this.readGraph(path, false);
+    }
+
+    @Override
+    public Grafo readWeightedGraph(String path) {
+        return this.readGraph(path, true);
     }
 
     @Override
@@ -72,11 +84,6 @@ public class GrafoController implements GraphLibrary {
     @Override
     public boolean connected(Grafo grafo) {
         return false;
-    }
-
-    @Override
-    public Grafo readWeightedGraph(String path) {
-        return null;
     }
 
     @Override
