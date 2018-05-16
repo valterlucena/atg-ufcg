@@ -6,11 +6,12 @@ import grafo.Vertice;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.util.*;
 
 public class GrafoController implements GraphLibrary {
 
     private static final int ZERO = 0;
+    Set<Integer> verticesVisitados = new HashSet<>();
 
     private Scanner getScanner(String path) {
         File file = new File(path);
@@ -87,7 +88,68 @@ public class GrafoController implements GraphLibrary {
     }
 
     @Override
-    public String BFS(Grafo grafo, int vertice) {
+    public String BFS(Grafo grafo, Vertice vertice) {
+        StringBuilder saida = new StringBuilder();
+        Queue<Vertice> fila = new LinkedList<>();
+
+        int nivel = 0;
+
+        saida.append(vertice.getId()).append(" - ").append(nivel).append(" -").append("\n");
+
+        fila.add(vertice);
+        vertice.setVisitado(true);
+
+        this.verticesVisitados.add(vertice.getId());
+
+        while(!fila.isEmpty()) {
+            boolean nivelVisitado = false;
+
+            Vertice pai = fila.poll();
+            Vertice filho = null;
+
+            while ((filho = filhoNaoVisitado(grafo, pai)) != null) {
+                if(!nivelVisitado) {
+                    nivelVisitado = true;
+                    nivel++;
+                }
+
+                filho.setVisitado(true);
+                fila.add(filho);
+
+                saida.append(filho.getId()).append(" - ").append(nivel).append(" ").append(pai.getId()).append("\n");
+            }
+
+            pai.setVisitado(true);
+        }
+
+        System.out.println(saida.toString());
+        return saida.toString();
+    }
+
+    private Vertice filhoNaoVisitado(Grafo grafo, Vertice pai) {
+        for (Aresta aresta : grafo.getArestas()) {
+            Vertice v1 = aresta.getInicio();
+            Vertice v2 = aresta.getFim();
+
+            if (v1.equals(pai) && !(v2.isVisitado())) {
+                // verifica se já não foi visitado
+                int oldLen = verticesVisitados.size();
+                this.verticesVisitados.add(v2.getId());
+                int newLen = verticesVisitados.size();
+                if(oldLen != newLen) {
+                    return v2;
+                }
+            } else if (v2.equals(pai) && !(v1.isVisitado())) {
+                // verifica se já não foi visitado
+                int oldLen = verticesVisitados.size();
+                this.verticesVisitados.add(v1.getId());
+                int newLen = verticesVisitados.size();
+                if(oldLen != newLen) {
+                    return v1;
+                }
+            }
+        }
+
         return null;
     }
 

@@ -5,9 +5,11 @@ import java.util.Objects;
 public class Vertice {
 
     int id;
+    boolean visitado;
 
     public Vertice(int id ) {
         this.setId(id);
+        this.visitado = false;
     }
 
     public int getId() {
@@ -16,6 +18,14 @@ public class Vertice {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public boolean isVisitado() {
+        return visitado;
+    }
+
+    public void setVisitado(boolean visitado) {
+        this.visitado = visitado;
     }
 
     @Override
