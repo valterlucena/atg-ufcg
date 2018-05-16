@@ -98,9 +98,11 @@ public class GrafoController implements GraphLibrary {
 
     @Override
     public String graphRepresentation(Grafo grafo, String type) {
+
         String result = "";
         if (type.equalsIgnoreCase(MATRIZADJACENCIA)) {
-            result = this.matrixAdj(grafo);
+            int[][] matrizAdj = this.matrixAdj(grafo);
+            result = this.formatMatrixAdj(matrizAdj);
         } else if (type.equalsIgnoreCase(LISTAADJACENCIA)) {
             result = this.listAdj(grafo);
         } return result;
@@ -114,49 +116,34 @@ public class GrafoController implements GraphLibrary {
         return null;
     }
 
-    private String matrixAdj(Grafo grafo) {
+    private int[][] matrixAdj(Grafo grafo) {
         int size = this.getVertexNumber(grafo) + 1;
         int[][] matriz = new int[size][size];
-        this.initMatrix(grafo, matriz);
+        this.iniciaMatriz(grafo, matriz);
         List<Aresta> arestas = grafo.getArestas();
 
-        for (int linha = 0; linha < matriz.length; linha++) {
-            //rodar com o numero de arestas
-            for (int coluna = 0; coluna < matriz.length; coluna++) {
-                //ideia de comparacao eh essa
-                if (arestas.get(coluna).getInicio().getId() == matriz[coluna+1][0] &&
-                        arestas.get(coluna).getFim().getId() == matriz[0][coluna+1]) {
-                    matriz[linha+1][coluna+1] = 1;
-                    matriz[coluna+1][linha+1] = 1;
-                } 
-
+        for (int i = 1; i < size; i++) {
+            int inicio = arestas.get(i-1).getInicio().getId();
+            int fim = arestas.get(i-1).getFim().getId();
+            for (int j = 1; j < size; j++) {
+                matriz[inicio][fim] = 1;
             }
         }
 
-        return null;
+        return matriz;
     }
 
-
-    private void preencheVertMatriz(Grafo grafo, int[][] matriz) {
+    private void iniciaMatriz(Grafo grafo, int[][] matriz) {
         int i = 1;
-        for (Vertice vertice: grafo.getVertices()) {
+        Set<Vertice> vertices = grafo.getVertices();
+        Vertice[] arrayVertices = vertices.toArray(new Vertice[vertices.size()]);
+        for (Vertice vertice: vertices) {
             matriz[i][0] = vertice.getId();
             matriz[0][i] = vertice.getId();
             i++;
         }
+
     }
-
-    private void initMatrix(Grafo grafo, int[][] matrix) {
-
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix.length; j++) {
-                matrix[i][j] = 0;
-            }
-        }
-
-        this.preencheVertMatriz(grafo, matrix);
-    }
-
 
     private String listAdj(Grafo grafo) {
         int size = this.getVertexNumber(grafo);
