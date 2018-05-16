@@ -28,7 +28,7 @@ public class Grafo {
     }
 
     public void addAresta(Vertice inicio, Vertice fim, double peso) {
-        //grafos bidirecionais
+        //Arestas para adjacentes do vértice
         Aresta arestaIF = new Aresta(inicio, fim, peso);
         Aresta arestaFI = new Aresta(fim, inicio, peso);
 
@@ -36,7 +36,6 @@ public class Grafo {
         fim.addAdj(arestaFI);
 
         this.arestas.add(arestaIF);
-        this.arestas.add(arestaFI);
     }
 
     public Vertice addVertice(int id) {
