@@ -1,5 +1,6 @@
 package controller;
 
+import com.sun.xml.internal.ws.api.pipe.ServerTubeAssemblerContext;
 import grafo.Aresta;
 import grafo.Grafo;
 import grafo.Vertice;
@@ -7,8 +8,13 @@ import grafo.Vertice;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.Set;
 
 public class GrafoController implements GraphLibrary {
+
+
+    private static final String MATRIZADJACENCIA = "AM";
+    private static final String LISTAADJACENCIA = "AL";
 
     private Scanner getScanner(String path) {
         File file = new File(path);
@@ -91,7 +97,64 @@ public class GrafoController implements GraphLibrary {
 
     @Override
     public String graphRepresentation(Grafo grafo, String type) {
+        String result = "";
+        if (type.equalsIgnoreCase(MATRIZADJACENCIA)) {
+            result = this.matrixAdj(grafo);
+        } else if (type.equalsIgnoreCase(LISTAADJACENCIA)) {
+            result = this.listAdj(grafo);
+        } return result;
+    }
+
+    private String formatMatrixAdj(int[][] matriz) {
         return null;
+    }
+
+    private String formatListAdj(int[][] matriz) {
+        return null;
+    }
+
+    private String matrixAdj(Grafo grafo) {
+        int size = this.getVertexNumber(grafo) + 1;
+        int[][] matriz = new int[size][size];
+        this.initMatrix(grafo, matriz);
+
+        for (Vertice vertice: grafo.getVertices()) {
+            for (Aresta aresta: grafo.getArestas()) {
+
+            }
+        }
+
+        return null;
+    }
+
+    
+    private void preencheVertMatriz(Grafo grafo, int[][] matriz) {
+        int i = 1;
+        for (Vertice vertice: grafo.getVertices()) {
+            matriz[i][0] = vertice.getId();
+            matriz[0][i] = vertice.getId();
+            i++;
+        }
+    }
+
+    private void initMatrix(Grafo grafo, int[][] matrix) {
+
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix.length; j++) {
+                matrix[i][j] = 0;
+            }
+        }
+
+        this.preencheVertMatriz(grafo, matrix);
+    }
+
+
+    private String listAdj(Grafo grafo) {
+        int size = this.getVertexNumber(grafo);
+        int[][] list = new int[size][size];
+
+        return null;
+
     }
 
     @Override
