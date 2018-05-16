@@ -1,3 +1,4 @@
+
 package controller;
 
 import grafo.Aresta;
@@ -10,8 +11,9 @@ import java.util.*;
 
 public class GrafoController implements GraphLibrary {
 
+    private static final String NOVA_LINHA = System.lineSeparator();
+    private static final int INFINITO = 100000000;
     private static final int ZERO = 0;
-    Set<Integer> verticesVisitados = new HashSet<>();
 
     private Scanner getScanner(String path) {
         File file = new File(path);
@@ -29,14 +31,17 @@ public class GrafoController implements GraphLibrary {
         Scanner leitor = getScanner(path);
         int quantidadeDeVertices = Integer.valueOf(leitor.nextLine());
         Grafo grafo = new Grafo();
+        grafo.setSize(quantidadeDeVertices);
+
         while (leitor.hasNext()) {
             String arestaAtual = leitor.nextLine();
             String[] argumentos = arestaAtual.split(" ");
-            Vertice inicio = new Vertice(Integer.parseInt(argumentos[0]));
-            Vertice fim = new Vertice(Integer.parseInt(argumentos[1]));
+
+            int inicioId = Integer.parseInt(argumentos[0]);
+            int fimId = Integer.parseInt(argumentos[1]);
             double peso = isWeighted ? Double.parseDouble(argumentos[2]) : ZERO;
-            Aresta aresta = new Aresta(inicio, fim, peso);
-            grafo.getArestas().add(aresta);
+
+            grafo.addAresta(grafo.addVertice(inicioId), grafo.addVertice(fimId), peso);
         }
 
         return grafo;
@@ -88,69 +93,66 @@ public class GrafoController implements GraphLibrary {
     }
 
     @Override
-    public String BFS(Grafo grafo, Vertice vertice) {
+    public String BFS(Grafo grafo, Vertice verticeInicial) {
         StringBuilder saida = new StringBuilder();
         Queue<Vertice> fila = new LinkedList<>();
 
-        int nivel = 0;
+        int[] nivel = new int[grafo.getSize()];
+        Vertice[] pai = new Vertice[grafo.getSize()];
 
-        saida.append(vertice.getId()).append(" - ").append(nivel).append(" -").append("\n");
+        setNivel(nivel);
+        setPai(pai);
 
-        fila.add(vertice);
-        vertice.setVisitado(true);
+        nivel[verticeInicial.getId()] = 0;
+        fila.add(verticeInicial);
 
-        this.verticesVisitados.add(vertice.getId());
+        while (!fila.isEmpty()) {
+            Vertice v = fila.remove();
 
-        while(!fila.isEmpty()) {
-            boolean nivelVisitado = false;
+            for (Aresta aresta : v.getAdj()) {
+                int idVerticeInicio = v.getId();
+                int idVerticeFim = aresta.getFim().getId();
 
-            Vertice pai = fila.poll();
-            Vertice filho = null;
-
-            while ((filho = filhoNaoVisitado(grafo, pai)) != null) {
-                if(!nivelVisitado) {
-                    nivelVisitado = true;
-                    nivel++;
+                if ((nivel[idVerticeInicio] + 1) < nivel[idVerticeFim]) {
+                    nivel[idVerticeFim] = nivel[idVerticeInicio] + 1;
+                    pai[idVerticeFim] = v;
+                    fila.add(aresta.getFim());
                 }
-
-                filho.setVisitado(true);
-                fila.add(filho);
-
-                saida.append(filho.getId()).append(" - ").append(nivel).append(" ").append(pai.getId()).append("\n");
             }
-
-            pai.setVisitado(true);
         }
 
-        System.out.println(saida.toString());
+        // Monta saída
+        for (int i = 1; i < grafo.getSize(); i++) {
+            saida.append(i + " - ");
+
+            if (nivel[i] == INFINITO) {
+                saida.append(0 + " ");
+            } else {
+                saida.append(nivel[i] + " ");
+            }
+
+            if (pai[i] == null) {
+                saida.append("-");
+            } else {
+                saida.append(pai[i].getId());
+            }
+
+            saida.append(NOVA_LINHA);
+        }
+
         return saida.toString();
     }
 
-    private Vertice filhoNaoVisitado(Grafo grafo, Vertice pai) {
-        for (Aresta aresta : grafo.getArestas()) {
-            Vertice v1 = aresta.getInicio();
-            Vertice v2 = aresta.getFim();
-
-            if (v1.equals(pai) && !(v2.isVisitado())) {
-                // verifica se já não foi visitado
-                int oldLen = verticesVisitados.size();
-                this.verticesVisitados.add(v2.getId());
-                int newLen = verticesVisitados.size();
-                if(oldLen != newLen) {
-                    return v2;
-                }
-            } else if (v2.equals(pai) && !(v1.isVisitado())) {
-                // verifica se já não foi visitado
-                int oldLen = verticesVisitados.size();
-                this.verticesVisitados.add(v1.getId());
-                int newLen = verticesVisitados.size();
-                if(oldLen != newLen) {
-                    return v1;
-                }
-            }
+    private void setPai(Vertice[] pai) {
+        for (int i = 0; i < pai.length; i++) {
+            pai[i] = null;
         }
+    }
 
-        return null;
+    private void setNivel(int[] nivel) {
+        for (int i = 0; i < nivel.length; i++) {
+            nivel[i] = INFINITO;
+        }
     }
 
     @Override

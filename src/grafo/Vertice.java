@@ -1,15 +1,24 @@
 package grafo;
 
+import java.util.ArrayList;
 import java.util.Objects;
-
+import java.util.List;
 public class Vertice {
 
     int id;
-    boolean visitado;
+    List<Aresta> adjacentes;
 
     public Vertice(int id ) {
         this.setId(id);
-        this.visitado = false;
+        this.adjacentes = new ArrayList<Aresta>();
+    }
+
+    public void addAdj(Aresta aresta) {
+        this.adjacentes.add(aresta);
+    }
+
+    public List<Aresta> getAdj() {
+        return this.adjacentes;
     }
 
     public int getId() {
@@ -18,14 +27,6 @@ public class Vertice {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public boolean isVisitado() {
-        return visitado;
-    }
-
-    public void setVisitado(boolean visitado) {
-        this.visitado = visitado;
     }
 
     @Override

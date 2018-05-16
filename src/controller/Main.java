@@ -11,6 +11,6 @@ public class Main {
         Grafo grafo = controller.readGraph("./entrada/entrada.txt");
         Vertice vInicial = new Vertice(1);
 
-        controller.BFS(grafo, vInicial);
+        System.out.println(controller.BFS(grafo, grafo.getVertices().get(0)));
     }
 }

@@ -1,20 +1,65 @@
 package grafo;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class Grafo {
 
-    public List<Aresta> arestas;
+    private List<Aresta> arestas;
+    private List<Vertice> vertices;
+    private int size;
 
     public Grafo() {
         this.arestas = new ArrayList<>();
+        this.vertices = new ArrayList<>();
+        this.size = 0;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size + 1;
     }
 
     public List<Aresta> getArestas() {
         return this.arestas;
+    }
+
+    public void addAresta(Vertice inicio, Vertice fim, double peso) {
+        //grafos bidirecionais
+        Aresta arestaIF = new Aresta(inicio, fim, peso);
+        Aresta arestaFI = new Aresta(fim, inicio, peso);
+
+        inicio.addAdj(arestaIF);
+        fim.addAdj(arestaFI);
+
+        this.arestas.add(arestaIF);
+        this.arestas.add(arestaFI);
+    }
+
+    public Vertice addVertice(int id) {
+        Vertice auxVertice = contemVertice(id);
+
+        if (auxVertice == null) {
+            Vertice vertice = new Vertice(id);
+            this.vertices.add(vertice);
+
+            return vertice;
+        } else {
+            return auxVertice;
+        }
+    }
+
+    private Vertice contemVertice(int id) {
+        for (Vertice v : this.vertices) {
+            if (id == v.getId()) {
+                return v;
+            }
+        }
+
+        return null;
     }
 
     public String toString() {
@@ -25,12 +70,7 @@ public class Grafo {
         return saida.trim();
     }
 
-    public Set<Vertice> getVertices() {
-        Set<Vertice> vertices = new HashSet<>();
-        for (Aresta aresta: this.getArestas()) {
-            vertices.add(aresta.inicio);
-            vertices.add(aresta.fim);
-        }
-        return vertices;
+    public List<Vertice> getVertices() {
+        return this.vertices;
     }
 }
