@@ -7,6 +7,7 @@ import grafo.Vertice;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -117,9 +118,17 @@ public class GrafoController implements GraphLibrary {
         int size = this.getVertexNumber(grafo) + 1;
         int[][] matriz = new int[size][size];
         this.initMatrix(grafo, matriz);
+        List<Aresta> arestas = grafo.getArestas();
 
-        for (Vertice vertice: grafo.getVertices()) {
-            for (Aresta aresta: grafo.getArestas()) {
+        for (int linha = 0; linha < matriz.length; linha++) {
+            //rodar com o numero de arestas
+            for (int coluna = 0; coluna < matriz.length; coluna++) {
+                //ideia de comparacao eh essa
+                if (arestas.get(coluna).getInicio().getId() == matriz[coluna+1][0] &&
+                        arestas.get(coluna).getFim().getId() == matriz[0][coluna+1]) {
+                    matriz[linha+1][coluna+1] = 1;
+                    matriz[coluna+1][linha+1] = 1;
+                } 
 
             }
         }
@@ -127,7 +136,7 @@ public class GrafoController implements GraphLibrary {
         return null;
     }
 
-    
+
     private void preencheVertMatriz(Grafo grafo, int[][] matriz) {
         int i = 1;
         for (Vertice vertice: grafo.getVertices()) {
