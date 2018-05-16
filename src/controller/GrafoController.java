@@ -146,10 +146,23 @@ public class GrafoController implements GraphLibrary {
     }
 
     private String listAdj(Grafo grafo) {
-        int size = this.getVertexNumber(grafo);
-        int[][] list = new int[size][size];
+        List<Aresta> arestas = grafo.getArestas();
+        int numeroVertices = this.getVertexNumber(grafo);
 
-        return null;
+        List<Vertice> listaAdjCompleta = new ArrayList<>();
+
+        Set<Vertice> vertices = grafo.getVertices();
+        Vertice[] arrayVertices = vertices.toArray(new Vertice[vertices.size()]);
+
+        for (int i = 0; i < arestas.size(); i++) {
+            List<Vertice> listaAdjAux = new ArrayList<>();
+            for (int j = 0; j < numeroVertices; j++) {
+                List<Vertice> extremidades = arestas.get(i).getExtremidades();
+                //if (extremidades.contains(grafo.getVertices()))
+            }
+        }
+
+        return null; //to do
 
     }
 
