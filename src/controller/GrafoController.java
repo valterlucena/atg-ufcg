@@ -1,3 +1,4 @@
+
 package controller;
 
 import grafo.Aresta;
@@ -6,10 +7,12 @@ import grafo.Vertice;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.util.*;
 
 public class GrafoController implements GraphLibrary {
 
+    private static final String NOVA_LINHA = System.lineSeparator();
+    private static final int INFINITO = 100000000;
     private static final int ZERO = 0;
 
     private Scanner getScanner(String path) {
@@ -28,14 +31,17 @@ public class GrafoController implements GraphLibrary {
         Scanner leitor = getScanner(path);
         int quantidadeDeVertices = Integer.valueOf(leitor.nextLine());
         Grafo grafo = new Grafo();
+        grafo.setSize(quantidadeDeVertices);
+
         while (leitor.hasNext()) {
             String arestaAtual = leitor.nextLine();
             String[] argumentos = arestaAtual.split(" ");
-            Vertice inicio = new Vertice(Integer.parseInt(argumentos[0]));
-            Vertice fim = new Vertice(Integer.parseInt(argumentos[1]));
+
+            int inicioId = Integer.parseInt(argumentos[0]);
+            int fimId = Integer.parseInt(argumentos[1]);
             double peso = isWeighted ? Double.parseDouble(argumentos[2]) : ZERO;
-            Aresta aresta = new Aresta(inicio, fim, peso);
-            grafo.getArestas().add(aresta);
+
+            grafo.addAresta(grafo.addVertice(inicioId), grafo.addVertice(fimId), peso);
         }
 
         return grafo;
@@ -87,8 +93,66 @@ public class GrafoController implements GraphLibrary {
     }
 
     @Override
-    public String BFS(Grafo grafo, int vertice) {
-        return null;
+    public String BFS(Grafo grafo, Vertice verticeInicial) {
+        StringBuilder saida = new StringBuilder();
+        Queue<Vertice> fila = new LinkedList<>();
+
+        int[] nivel = new int[grafo.getSize()];
+        Vertice[] pai = new Vertice[grafo.getSize()];
+
+        setNivel(nivel);
+        setPai(pai);
+
+        nivel[verticeInicial.getId()] = 0;
+        fila.add(verticeInicial);
+
+        while (!fila.isEmpty()) {
+            Vertice v = fila.remove();
+
+            for (Vertice verticeFinal : v.getAdj()) {
+                int idVerticeInicio = v.getId();
+                int idVerticeFim = verticeFinal.getId();
+
+                if ((nivel[idVerticeInicio] + 1) < nivel[idVerticeFim]) {
+                    nivel[idVerticeFim] = nivel[idVerticeInicio] + 1;
+                    pai[idVerticeFim] = v;
+                    fila.add(verticeFinal);
+                }
+            }
+        }
+
+        // Monta saída
+        for (int i = 1; i < grafo.getSize(); i++) {
+            saida.append(i + " - ");
+
+            if (nivel[i] == INFINITO) {
+                saida.append(0 + " ");
+            } else {
+                saida.append(nivel[i] + " ");
+            }
+
+            if (pai[i] == null) {
+                saida.append("-");
+            } else {
+                saida.append(pai[i].getId());
+            }
+
+            saida.append(NOVA_LINHA);
+        }
+
+        return saida.toString();
+    }
+
+    private void setPai(Vertice[] pai) {
+        for (int i = 0; i < pai.length; i++) {
+            pai[i] = null;
+        }
+    }
+
+    private void setNivel(int[] nivel) {
+        for (int i = 0; i < nivel.length; i++) {
+            nivel[i] = INFINITO;
+        }
     }
 
     @Override

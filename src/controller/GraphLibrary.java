@@ -1,6 +1,7 @@
 package controller;
 
 import grafo.Grafo;
+import grafo.Vertice;
 
 public interface GraphLibrary {
 
@@ -16,7 +17,7 @@ public interface GraphLibrary {
 
     String graphRepresentation(Grafo grafo, String type);
 
-    String BFS(Grafo grafo, int vertice);
+    String BFS(Grafo grafo, Vertice vertice);
 
     String DFS(Grafo grafo, int vertice);
 
