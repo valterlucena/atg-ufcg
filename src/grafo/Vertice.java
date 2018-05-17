@@ -6,18 +6,18 @@ import java.util.List;
 public class Vertice {
 
     int id;
-    List<Aresta> adjacentes;
+    List<Vertice> adjacentes;
 
     public Vertice(int id ) {
         this.setId(id);
-        this.adjacentes = new ArrayList<Aresta>();
+        this.adjacentes = new ArrayList<Vertice>();
     }
 
-    public void addAdj(Aresta aresta) {
-        this.adjacentes.add(aresta);
+    public void addAdj(Vertice vertice) {
+        this.adjacentes.add(vertice);
     }
 
-    public List<Aresta> getAdj() {
+    public List<Vertice> getAdj() {
         return this.adjacentes;
     }
 

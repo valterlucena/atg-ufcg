@@ -109,14 +109,14 @@ public class GrafoController implements GraphLibrary {
         while (!fila.isEmpty()) {
             Vertice v = fila.remove();
 
-            for (Aresta aresta : v.getAdj()) {
+            for (Vertice verticeFinal : v.getAdj()) {
                 int idVerticeInicio = v.getId();
-                int idVerticeFim = aresta.getFim().getId();
+                int idVerticeFim = verticeFinal.getId();
 
                 if ((nivel[idVerticeInicio] + 1) < nivel[idVerticeFim]) {
                     nivel[idVerticeFim] = nivel[idVerticeInicio] + 1;
                     pai[idVerticeFim] = v;
-                    fila.add(aresta.getFim());
+                    fila.add(verticeFinal);
                 }
             }
         }

@@ -32,8 +32,8 @@ public class Grafo {
         Aresta verticeInicialPVerticeFinal = new Aresta(inicio, fim, peso);
         Aresta verticeFinalPVerticeInicial = new Aresta(fim, inicio, peso);
 
-        inicio.addAdj(verticeInicialPVerticeFinal);
-        fim.addAdj(verticeFinalPVerticeInicial);
+        inicio.addAdj(verticeInicialPVerticeFinal.getFim());
+        fim.addAdj(verticeFinalPVerticeInicial.getFim());
 
         this.arestas.add(verticeInicialPVerticeFinal);
     }
