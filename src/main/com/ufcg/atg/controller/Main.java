@@ -1,7 +1,7 @@
-package controller;
+package main.com.ufcg.atg.controller;
 
-import grafo.Grafo;
-import grafo.Vertice;
+import main.com.ufcg.atg.grafo.Vertice;
+import main.com.ufcg.atg.grafo.Grafo;
 
 public class Main {
 

@@ -1,9 +1,9 @@
 
-package controller;
+package main.com.ufcg.atg.controller;
 
-import grafo.Aresta;
-import grafo.Grafo;
-import grafo.Vertice;
+import main.com.ufcg.atg.grafo.Vertice;
+import main.com.ufcg.atg.grafo.Aresta;
+import main.com.ufcg.atg.grafo.Grafo;
 
 import java.io.File;
 import java.io.FileNotFoundException;

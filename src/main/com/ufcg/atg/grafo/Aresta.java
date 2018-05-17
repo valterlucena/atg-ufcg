@@ -1,4 +1,4 @@
-package grafo;
+package main.com.ufcg.atg.grafo;
 
 import java.util.Objects;
 
