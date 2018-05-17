@@ -28,14 +28,12 @@ public class Grafo {
     }
 
     public void addAresta(Vertice inicio, Vertice fim, double peso) {
-        //Arestas para adjacentes do vértice
-        Aresta verticeInicialPVerticeFinal = new Aresta(inicio, fim, peso);
-        Aresta verticeFinalPVerticeInicial = new Aresta(fim, inicio, peso);
+        Aresta aresta = new Aresta(inicio, fim, peso);
 
-        inicio.addAdj(verticeInicialPVerticeFinal.getFim());
-        fim.addAdj(verticeFinalPVerticeInicial.getFim());
+        inicio.addAdj(fim);
+        fim.addAdj(inicio);
 
-        this.arestas.add(verticeInicialPVerticeFinal);
+        this.arestas.add(aresta);
     }
 
     public Vertice addVertice(int id) {
