@@ -3,11 +3,13 @@ package controller;
 import grafo.Aresta;
 import grafo.Grafo;
 import grafo.Vertice;
-import util.No;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.LinkedList;
+import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.Scanner;
 
 public class GrafoController implements GraphLibrary {
 
@@ -173,37 +175,34 @@ public class GrafoController implements GraphLibrary {
     @Override
     public String shortestPath(Grafo graph, Vertice v1, Vertice v2) {
         StringBuilder saida = new StringBuilder();
-        PriorityQueue<No> fila = new PriorityQueue<>();
-        No[] distancias = new No[graph.getSize()];
+        PriorityQueue<Vertice> fila = new PriorityQueue<>();
+        Vertice[] distancias = new Vertice[graph.getSize()];
 
         saida.append(v1.getId());
 
-        // padroniza distancia minima para cada nó com infinito
-        padronizaDistancias(distancias);
+        setDistancias(distancias);
 
         // padroniza distancia minima do nó origem com 0
-        No noInicial = new No();
-        noInicial.vertice = v1;
-        noInicial.distancia = ZERO;
+        distancias[v1.getId()] = v1;
+        distancias[v1.getId()].setDistancia(ZERO);
 
-        distancias[v1.getId()] = noInicial;
-        fila.add(noInicial);
+        fila.add(distancias[v1.getId()]);
 
         while (!fila.isEmpty()) {
-            No u = fila.remove();
+            Vertice u = fila.remove();
 
-            for (Aresta aresta : graph.getArestasDosVertices(u.vertice.getVerticesAdjacentes())) {
+            for (Aresta aresta : graph.getArestasDosVertices(u.getVerticesAdjacentes())) {
                 Vertice destino = aresta.getFim();
 
-                int origemId = u.vertice.getId();
+                int origemId = u.getId();
                 int destinoId = destino.getId();
 
-                double distanciaOrigemU = distancias[origemId].distancia;
-                double distanciaOrigemV = distancias[destinoId].distancia;
+                double distanciaOrigemU = distancias[origemId].getDistancia();
+                double distanciaOrigemV = distancias[destinoId].getDistancia();
 
                 if (distanciaOrigemU + aresta.getPeso() < distanciaOrigemV) {
-                    distancias[destinoId].vertice = destino;
-                    distancias[destinoId].distancia = distanciaOrigemU + aresta.getPeso();
+                    distancias[destinoId] = destino;
+                    distancias[destinoId].setDistancia(distanciaOrigemU + aresta.getPeso());
 
                     saida.append(" " + destino.getId());
 
@@ -219,10 +218,9 @@ public class GrafoController implements GraphLibrary {
         return saida.toString();
     }
 
-    private void padronizaDistancias(No[] distancias) {
+    private void setDistancias(Vertice[] distancias) {
         for (int i = 0; i < distancias.length; i++) {
-            distancias[i] = new No();
-            distancias[i].distancia = INFINITO;
+            distancias[i] = new Vertice(i);
         }
     }
 }
