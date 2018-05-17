@@ -94,6 +94,16 @@ public class GrafoController implements GraphLibrary {
         return false;
     }
 
+    /**
+     * Percorre o grafo utilizando a busca em largura, dado um vértice inicial
+     * fornecido.
+     *
+     * @param grafo
+     * @param verticeInicial
+     *
+     * @return String representando a árvore de busca gerada, com o nível de cada vértice na árvore.
+     * A árvore gerada é descrita informando o pai de cada vértice e seu nível na String de saída.
+     */
     @Override
     public String BFS(Grafo grafo, Vertice verticeInicial) {
         StringBuilder saida = new StringBuilder();
@@ -145,12 +155,23 @@ public class GrafoController implements GraphLibrary {
         return saida.toString();
     }
 
+    /**
+     * Popula o Array de pais com posições vazias.
+     *
+     * @param pai
+     */
     private void setPai(Vertice[] pai) {
         for (int i = 0; i < pai.length; i++) {
             pai[i] = null;
         }
     }
 
+    /**
+     * Popula o Array de niveis com infinito. Que representa o nível máximo
+     * teórico que um gráfo pode chegar.
+     *
+     * @param nivel
+     */
     private void setNivel(int[] nivel) {
         for (int i = 0; i < nivel.length; i++) {
             nivel[i] = INFINITO;
@@ -263,6 +284,14 @@ public class GrafoController implements GraphLibrary {
         return null;
     }
 
+    /**
+     * Encontra o caminho mais curto entre dois vértices.
+     *
+     * @param graph
+     * @param v1 Vértice Origem
+     * @param v2 Vértice Destino
+     * @return
+     */
     @Override
     public String shortestPath(Grafo graph, Vertice v1, Vertice v2) {
         StringBuilder saida = new StringBuilder();
@@ -309,6 +338,11 @@ public class GrafoController implements GraphLibrary {
         return saida.toString();
     }
 
+    /**
+     * Inicia o array de distâncias com vértices.
+     *
+     * @param distancias
+     */
     private void setDistancias(Vertice[] distancias) {
         for (int i = 0; i < distancias.length; i++) {
             distancias[i] = new Vertice(i);
