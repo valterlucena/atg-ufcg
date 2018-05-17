@@ -1,4 +1,3 @@
-
 package controller;
 
 import grafo.Aresta;
@@ -62,7 +61,7 @@ public class GrafoController implements GraphLibrary {
 
     @Override
     public float getMeanEdge(Grafo grafo) {
-        int sum = 0;
+        int sum = ZERO;
         for (Vertice vertice: grafo.getVertices()) {
             sum += this.getVertexDegree(grafo, vertice);
         }
@@ -70,7 +69,7 @@ public class GrafoController implements GraphLibrary {
     }
 
     private int getVertexDegree(Grafo grafo, Vertice vertice) {
-        int grau = 0;
+        int grau = ZERO;
         for (Aresta aresta: grafo.getArestas()) {
             if (aresta.getInicio().equals(vertice)
                     || aresta.getFim().equals(vertice)) {
@@ -106,13 +105,13 @@ public class GrafoController implements GraphLibrary {
         setNivel(nivel);
         setPai(pai);
 
-        nivel[verticeInicial.getId()] = 0;
+        nivel[verticeInicial.getId()] = ZERO;
         fila.add(verticeInicial);
 
         while (!fila.isEmpty()) {
             Vertice v = fila.remove();
 
-            for (Vertice verticeFinal : v.getAdj()) {
+            for (Vertice verticeFinal : v.getVerticesAdjacentes()) {
                 int idVerticeInicio = v.getId();
                 int idVerticeFim = verticeFinal.getId();
 
@@ -129,7 +128,7 @@ public class GrafoController implements GraphLibrary {
             saida.append(i + " - ");
 
             if (nivel[i] == INFINITO) {
-                saida.append(0 + " ");
+                saida.append(ZERO + " ");
             } else {
                 saida.append(nivel[i] + " ");
             }
@@ -265,7 +264,54 @@ public class GrafoController implements GraphLibrary {
     }
 
     @Override
-    public String shortestPath(int vertice1, int vertice2) {
-        return null;
+    public String shortestPath(Grafo graph, Vertice v1, Vertice v2) {
+        StringBuilder saida = new StringBuilder();
+        PriorityQueue<Vertice> fila = new PriorityQueue<>();
+        Vertice[] distancias = new Vertice[graph.getSize()];
+
+        saida.append(v1.getId());
+
+        setDistancias(distancias);
+
+        // padroniza distancia minima do nó origem com 0
+        distancias[v1.getId()] = v1;
+        distancias[v1.getId()].setDistancia(ZERO);
+
+        fila.add(distancias[v1.getId()]);
+
+        while (!fila.isEmpty()) {
+            Vertice u = fila.remove();
+
+            for (Aresta aresta : graph.getArestasDosVertices(u.getVerticesAdjacentes())) {
+                Vertice destino = aresta.getFim();
+
+                int origemId = u.getId();
+                int destinoId = destino.getId();
+
+                double distanciaOrigemU = distancias[origemId].getDistancia();
+                double distanciaOrigemV = distancias[destinoId].getDistancia();
+
+                if (distanciaOrigemU + aresta.getPeso() < distanciaOrigemV) {
+                    distancias[destinoId] = destino;
+                    distancias[destinoId].setDistancia(distanciaOrigemU + aresta.getPeso());
+
+                    saida.append(" " + destino.getId());
+
+                    if (destino.getId() == v2.getId()) {
+                        break;
+                    }
+
+                    fila.add(distancias[destinoId]);
+                }
+            }
+        }
+
+        return saida.toString();
+    }
+
+    private void setDistancias(Vertice[] distancias) {
+        for (int i = 0; i < distancias.length; i++) {
+            distancias[i] = new Vertice(i);
+        }
     }
 }
