@@ -39,7 +39,7 @@ public class Grafo {
     }
 
     public Vertice addVertice(int id) {
-        Vertice auxVertice = contemVertice(id);
+        Vertice auxVertice = getVertice(id);
 
         if (auxVertice == null) {
             Vertice vertice = new Vertice(id);
@@ -51,10 +51,10 @@ public class Grafo {
         }
     }
 
-    private Vertice contemVertice(int id) {
-        for (Vertice v : this.vertices) {
-            if (id == v.getId()) {
-                return v;
+    private Vertice getVertice(int id) {
+        for (Vertice vertice : this.vertices) {
+            if (id == vertice.getId()) {
+                return vertice;
             }
         }
 
