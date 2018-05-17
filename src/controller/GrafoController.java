@@ -7,9 +7,7 @@ import grafo.Vertice;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.List;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 public class GrafoController implements GraphLibrary {
 
@@ -100,11 +98,13 @@ public class GrafoController implements GraphLibrary {
     public String graphRepresentation(Grafo grafo, String type) {
 
         String result = "";
+
         if (type.equalsIgnoreCase(MATRIZADJACENCIA)) {
             int[][] matrizAdj = this.matrixAdj(grafo);
             result = this.formatMatrixAdj(matrizAdj);
         } else if (type.equalsIgnoreCase(LISTAADJACENCIA)) {
-            result = this.listAdj(grafo);
+            List<List> listaAdj = this.listAdj(grafo);
+            result = this.formatListAdj(listaAdj);
         } return result;
     }
 
@@ -112,7 +112,7 @@ public class GrafoController implements GraphLibrary {
         return null;
     }
 
-    private String formatListAdj(int[][] matriz) {
+    private String formatListAdj(List<List> matriz) {
         return null;
     }
 
@@ -134,37 +134,51 @@ public class GrafoController implements GraphLibrary {
     }
 
     private void iniciaMatriz(Grafo grafo, int[][] matriz) {
-        int i = 1;
+        int indice = 1;
         Set<Vertice> vertices = grafo.getVertices();
-        Vertice[] arrayVertices = vertices.toArray(new Vertice[vertices.size()]);
         for (Vertice vertice: vertices) {
-            matriz[i][0] = vertice.getId();
-            matriz[0][i] = vertice.getId();
-            i++;
+            matriz[indice][0] = vertice.getId();
+            matriz[0][indice] = vertice.getId();
+            indice++;
         }
 
     }
 
-    private String listAdj(Grafo grafo) {
+    private Vertice[] criaArrayVertices(Grafo grafo) {
+        Set<Vertice> vertices = grafo.getVertices();
+        Vertice[] arrayVertices = vertices.toArray(new Vertice[vertices.size()]);
+        return arrayVertices;
+    }
+
+    private List<List> listAdj(Grafo grafo) {
         List<Aresta> arestas = grafo.getArestas();
         int numeroVertices = this.getVertexNumber(grafo);
 
-        List<Vertice> listaAdjCompleta = new ArrayList<>();
+        List listaAdj = new ArrayList<>();
+        Vertice[] arrayVertices = this.criaArrayVertices(grafo);
 
-        Set<Vertice> vertices = grafo.getVertices();
-        Vertice[] arrayVertices = vertices.toArray(new Vertice[vertices.size()]);
+        for (int i = 0; i < numeroVertices; i++) {
+            List aux = new ArrayList();
+            aux.add(arrayVertices[i].getId());
+            for (int j = 0; j < arestas.size(); j++) {
 
-        for (int i = 0; i < arestas.size(); i++) {
-            List<Vertice> listaAdjAux = new ArrayList<>();
-            for (int j = 0; j < numeroVertices; j++) {
-                List<Vertice> extremidades = arestas.get(i).getExtremidades();
-                //if (extremidades.contains(grafo.getVertices()))
+                int inicio = arestas.get(j).getInicio().getId();
+                int fim = arestas.get(j).getFim().getId();
+
+                if (arrayVertices[i].getId() == inicio) {
+                    aux.add(fim);
+                } else if (arrayVertices[i].getId() == fim) {
+                    aux.add(inicio);
+                }
             }
+
+            
+            listaAdj.add(aux);
         }
 
-        return null; //to do
-
+        return listaAdj;
     }
+
 
     @Override
     public String mst(Grafo grafo) {
