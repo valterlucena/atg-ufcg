@@ -23,7 +23,7 @@ public interface GraphLibrary {
 
     boolean connected(Grafo grafo);
 
-    String shortestPath(int vertice1, int vertice2);
+    String shortestPath(Grafo grafo, Vertice vertice1, Vertice vertice2);
 
     String mst(Grafo grafo);
 
