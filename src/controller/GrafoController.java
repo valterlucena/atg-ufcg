@@ -1,4 +1,3 @@
-
 package controller;
 
 import grafo.Aresta;
@@ -60,7 +59,7 @@ public class GrafoController implements GraphLibrary {
 
     @Override
     public float getMeanEdge(Grafo grafo) {
-        int sum = 0;
+        int sum = ZERO;
         for (Vertice vertice: grafo.getVertices()) {
             sum += this.getVertexDegree(grafo, vertice);
         }
@@ -68,7 +67,7 @@ public class GrafoController implements GraphLibrary {
     }
 
     private int getVertexDegree(Grafo grafo, Vertice vertice) {
-        int grau = 0;
+        int grau = ZERO;
         for (Aresta aresta: grafo.getArestas()) {
             if (aresta.getInicio().equals(vertice)
                     || aresta.getFim().equals(vertice)) {
@@ -104,7 +103,7 @@ public class GrafoController implements GraphLibrary {
         setNivel(nivel);
         setPai(pai);
 
-        nivel[verticeInicial.getId()] = 0;
+        nivel[verticeInicial.getId()] = ZERO;
         fila.add(verticeInicial);
 
         while (!fila.isEmpty()) {
@@ -127,7 +126,7 @@ public class GrafoController implements GraphLibrary {
             saida.append(i + " - ");
 
             if (nivel[i] == INFINITO) {
-                saida.append(0 + " ");
+                saida.append(ZERO + " ");
             } else {
                 saida.append(nivel[i] + " ");
             }
@@ -179,13 +178,13 @@ public class GrafoController implements GraphLibrary {
 
         saida.append(v1.getId());
 
-        // padroniza distancia minimas para cada nó com infinito
+        // padroniza distancia minima para cada nó com infinito
         padronizaDistancias(distancias);
 
         // padroniza distancia minima do nó origem com 0
         No noInicial = new No();
         noInicial.vertice = v1;
-        noInicial.distancia = 0;
+        noInicial.distancia = ZERO;
 
         distancias[v1.getId()] = noInicial;
         fila.add(noInicial);
