@@ -3,22 +3,25 @@ package main.com.ufcg.atg.grafo;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.List;
-public class Vertice {
+public class Vertice implements Comparable<Vertice>{
+    private static final int INFINITO = 100000000;
 
     int id;
-    List<Vertice> adjacentes;
+    List<Vertice> verticesAdjacentes;
+    private double distancia;
 
     public Vertice(int id ) {
         this.setId(id);
-        this.adjacentes = new ArrayList<Vertice>();
+        this.verticesAdjacentes = new ArrayList<Vertice>();
+        this.distancia = INFINITO;
     }
 
-    public void addAdj(Vertice vertice) {
-        this.adjacentes.add(vertice);
+    public void addVerticeAdjacente(Vertice vertice) {
+        this.verticesAdjacentes.add(vertice);
     }
 
-    public List<Vertice> getAdj() {
-        return this.adjacentes;
+    public List<Vertice> getVerticesAdjacentes() {
+        return this.verticesAdjacentes;
     }
 
     public int getId() {
@@ -27,6 +30,14 @@ public class Vertice {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public double getDistancia() {
+        return distancia;
+    }
+
+    public void setDistancia(double distancia) {
+        this.distancia = distancia;
     }
 
     @Override
@@ -45,5 +56,16 @@ public class Vertice {
     @Override
     public String toString() {
         return String.valueOf(this.getId());
+    }
+
+    @Override
+    public int compareTo(Vertice vertice) {
+        if (this.distancia < vertice.distancia) {
+            return -1;
+        } else if (this.distancia > vertice.distancia) {
+            return 1;
+        }
+
+        return 0;
     }
 }
