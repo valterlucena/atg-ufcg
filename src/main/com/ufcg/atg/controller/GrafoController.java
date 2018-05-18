@@ -34,7 +34,7 @@ public class GrafoController implements GraphLibrary {
         Scanner leitor = getScanner(path);
         int quantidadeDeVertices = Integer.valueOf(leitor.nextLine());
         Grafo grafo = new Grafo();
-        grafo.setSize(quantidadeDeVertices);
+        grafo.criaVertices(quantidadeDeVertices);
 
         while (leitor.hasNext()) {
             String arestaAtual = leitor.nextLine();
@@ -44,7 +44,7 @@ public class GrafoController implements GraphLibrary {
             int fimId = Integer.parseInt(argumentos[1]);
             double peso = isWeighted ? Double.parseDouble(argumentos[2]) : ZERO;
 
-            grafo.addAresta(grafo.addVertice(inicioId), grafo.addVertice(fimId), peso);
+            grafo.addAresta(grafo.criaVertice(inicioId), grafo.criaVertice(fimId), peso);
         }
 
         return grafo;
@@ -66,7 +66,7 @@ public class GrafoController implements GraphLibrary {
         for (Vertice vertice: grafo.getVertices()) {
             sum += this.getVertexDegree(grafo, vertice);
         }
-        return sum / this.getVertexNumber(grafo);
+        return sum / (float) this.getVertexNumber(grafo);
     }
 
     private int getVertexDegree(Grafo grafo, Vertice vertice) {
@@ -92,7 +92,30 @@ public class GrafoController implements GraphLibrary {
 
     @Override
     public boolean connected(Grafo grafo) {
-        return false;
+        boolean[] visitados = new boolean[grafo.getSize()+1];
+        List<Vertice> vertices = grafo.getVertices();
+        if (vertices.size() > 1) { // trivialmente, um grafo nulo ou com apenas um vertice é conectado
+            Vertice primeiro = vertices.get(1);
+            this.visita(primeiro, visitados);
+            for (int i = 1; i < visitados.length; i++) {
+                if (!visitados[i]) return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Marca como visitado um vertice e seus vertices adjacentes.
+     * @param vertice O vértice que está sendo visitado
+     * @param visitados Guarda informações sobre os vértices que foram visitados
+     */
+    private void visita(Vertice vertice, boolean[] visitados) {
+        visitados[vertice.getId()] = true;
+        List<Vertice> adjacentes = vertice.getVerticesAdjacentes();
+        for (Vertice atual: adjacentes) {
+            int idAtual = atual.getId();
+            if (!visitados[idAtual]) visita(atual, visitados);
+        }
     }
 
     @Override
