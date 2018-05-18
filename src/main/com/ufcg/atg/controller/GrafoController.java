@@ -7,7 +7,16 @@ import main.com.ufcg.atg.grafo.Grafo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.Scanner;
+import java.util.Collections;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+import java.util.Queue;
+import java.util.PriorityQueue;
+
 
 public class GrafoController implements GraphLibrary {
 
@@ -170,8 +179,23 @@ public class GrafoController implements GraphLibrary {
     }
 
     @Override
-    public String DFS(Grafo grafo, int vertice) {
-        return null;
+    public String DFS(Grafo graph, Vertice vertex) {
+        return DFS(graph, vertex, null, ZERO, new HashSet<>());
+    }
+
+    private String DFS(Grafo graph, Vertice vertex, Vertice parent, int depth, Set<Vertice> visited) {
+        StringBuilder output = new StringBuilder();
+        output.append(vertex.getId());
+        output.append(" - ");
+        output.append(parent == null ? "- " : parent.getId() + " ");
+        output.append(depth);
+        visited.add(vertex);
+        for (Vertice current: vertex.getVerticesAdjacentes()) {
+            if (!visited.contains(current)) {
+                output.append(DFS(graph, current, vertex, depth + 1, visited));
+            }
+        }
+        return output.toString();
     }
 
     @Override

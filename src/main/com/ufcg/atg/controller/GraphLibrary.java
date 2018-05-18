@@ -44,7 +44,7 @@ public interface GraphLibrary {
      */
     String BFS(Grafo grafo, Vertice vertice);
 
-    String DFS(Grafo grafo, int vertice);
+    String DFS(Grafo grafo, Vertice vertice);
 
     boolean connected(Grafo grafo);
 
