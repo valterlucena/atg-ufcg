@@ -75,7 +75,7 @@ public class GraphLibraryTest {
 
     @Test
     public void representacionGraphTest() {
-        Grafo grafo = controller.readGraph("entrada/entrada.txt");
+        Grafo grafo = controller.readGraph("src/test/resources/entrada.txt");
 
         String esperada =   "  1 2 3 4 5 " + "\n" +
                             "1 0 1 0 0 1 " + "\n" +
@@ -91,8 +91,7 @@ public class GraphLibraryTest {
 
     @Test
     public void repreGraphPesoTest() {
-        Grafo grafo = controller.readWeightedGraph("entrada/entrada.txt");
-        GrafoController c = new GrafoController();
+        Grafo grafo = controller.readWeightedGraph("src/test/resources/entradaComPeso.txt");
 
         String esperada =  "   1   2   3   4   5" + "\n"+
                             "1 0.0 0.2 0.0 0.0 0.2 "+ "\n"+
@@ -103,7 +102,13 @@ public class GraphLibraryTest {
 
         String saida = controller.graphRepresentation(grafo, "AM");
         Assert.assertEquals(esperada, saida);
-
+        String lista = controller.graphRepresentation(grafo, "AL");
+        String saida2 = "{1=[2(0.1), 5(1.0)], 2=[1(0.1), 5(0.2)], 3=[4(-9.5), 5(5.0)], 4=[3(-9.5), 5(2.3)], 5=[1(1.0), 2(0.2), 3(5.0), 4(2.3)]}";
+        Assert.assertEquals(lista, saida2);
+    }
+  
+    public void shortestPath() {
+        Grafo grafo = controller.readWeightedGraph("src/test/resources/entradaComPeso.txt");
         String lista = controller.graphRepresentation(grafo, "AL");
         String saida2 = "{1=[2(0.1), 5(1.0)], 2=[1(0.1), 5(0.2)], 3=[4(-9.5), 5(5.0)], 4=[3(-9.5), 5(2.3)], 5=[1(1.0), 2(0.2), 3(5.0), 4(2.3)]}";
         Assert.assertEquals(lista, saida2);
