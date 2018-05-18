@@ -1,4 +1,3 @@
-
 package main.com.ufcg.atg.controller;
 
 import main.com.ufcg.atg.grafo.Vertice;
@@ -7,7 +6,15 @@ import main.com.ufcg.atg.grafo.Grafo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.Scanner;
+import java.util.Collections;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+import java.util.Queue;
+import java.util.PriorityQueue;
 
 public class GrafoController implements GraphLibrary {
 
@@ -165,7 +172,6 @@ public class GrafoController implements GraphLibrary {
 
             saida.append(NOVA_LINHA);
         }
-
         return saida.toString();
     }
 
@@ -175,7 +181,7 @@ public class GrafoController implements GraphLibrary {
      * @param pai
      */
     private void setPai(Vertice[] pai) {
-        for (int i = 0; i < pai.length; i++) {
+        for (int i = ZERO; i < pai.length; i++) {
             pai[i] = null;
         }
     }
@@ -187,14 +193,44 @@ public class GrafoController implements GraphLibrary {
      * @param nivel
      */
     private void setNivel(int[] nivel) {
-        for (int i = 0; i < nivel.length; i++) {
+        for (int i = ZERO; i < nivel.length; i++) {
             nivel[i] = INFINITO;
         }
     }
 
     @Override
-    public String DFS(Grafo grafo, int vertice) {
-        return null;
+    public String DFS(Grafo graph, Vertice vertex) {
+        return DFS(graph, vertex, null, ZERO, new HashSet<>());
+    }
+
+    /**
+     * Método auxiliar que implementa a lógica da busca em profundidade.
+     * @param graph
+     *      Grafo a ser percorrido
+     * @param vertex
+     *      Vértice inicial
+     * @param parent
+     *      Vértice pai
+     * @param depth
+     *      Profundidade do vértice
+     * @param visited
+     *      Conjunto de todos os vértices que já foram visitados
+     * @return
+     */
+    private String DFS(Grafo graph, Vertice vertex, Vertice parent, int depth, Set<Vertice> visited) {
+        StringBuilder output = new StringBuilder();
+        output.append(vertex.getId());
+        output.append(": ");
+        output.append(depth);
+        output.append(parent == null ? " -" : " " + parent.getId());
+        output.append(NOVA_LINHA);
+        visited.add(vertex);
+        for (Vertice current: vertex.getVerticesAdjacentes()) {
+            if (!visited.contains(current)) {
+                output.append(DFS(graph, current, vertex, depth + 1, visited));
+            }
+        }
+        return output.toString();
     }
 
     @Override
@@ -270,10 +306,10 @@ public class GrafoController implements GraphLibrary {
         List listaAdj = new ArrayList<>();
         Vertice[] arrayVertices = this.criaArrayVertices(grafo);
 
-        for (int i = 0; i < numeroVertices; i++) {
+        for (int i = ZERO; i < numeroVertices; i++) {
             List aux = new ArrayList();
             aux.add(arrayVertices[i].getId());
-            for (int j = 0; j < arestas.size(); j++) {
+            for (int j = ZERO; j < arestas.size(); j++) {
 
                 int inicio = arestas.get(j).getInicio().getId();
                 int fim = arestas.get(j).getFim().getId();
@@ -291,7 +327,6 @@ public class GrafoController implements GraphLibrary {
 
         return listaAdj;
     }
-
 
     @Override
     public String mst(Grafo grafo) {
@@ -358,7 +393,7 @@ public class GrafoController implements GraphLibrary {
      * @param distancias
      */
     private void setDistancias(Vertice[] distancias) {
-        for (int i = 0; i < distancias.length; i++) {
+        for (int i = ZERO; i < distancias.length; i++) {
             distancias[i] = new Vertice(i);
         }
     }
