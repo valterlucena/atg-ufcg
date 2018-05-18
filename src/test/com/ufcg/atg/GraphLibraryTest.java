@@ -21,7 +21,7 @@ public class GraphLibraryTest {
 
         int numeroDeArestas = grafo.getArestas().size();
         int numeroDeVertices = grafo.getVertices().size();
-        float expectedMeanEdge = (2*numeroDeArestas)/numeroDeVertices;
+        float expectedMeanEdge = (2*numeroDeArestas)/(float)numeroDeVertices;
         float meanEdge = controller.getMeanEdge(grafo);
 
         Assert.assertEquals(expectedMeanEdge, meanEdge);
@@ -29,17 +29,9 @@ public class GraphLibraryTest {
 
     @Test
     public void getEdgeNumberTest() {
-        Grafo grafo = new Grafo();
-        Vertice vertice1 = grafo.addVertice(1);
-        Vertice vertice2 = grafo.addVertice(2);
-        Vertice vertice3 = grafo.addVertice(3);
-        Vertice vertice4 = grafo.addVertice(4);
+        Grafo grafo = controller.readGraph("src/test/resources/entrada.txt");
 
-        grafo.addAresta(vertice1, vertice2, 0);
-        grafo.addAresta(vertice2, vertice4, 0);
-        grafo.addAresta(vertice1, vertice3, 0);
-
-        int realEdgeNumber = 3;
+        int realEdgeNumber = 6;
         int edgeNumber = controller.getEdgeNumber(grafo);
 
         Assert.assertEquals(realEdgeNumber, edgeNumber);
@@ -47,21 +39,14 @@ public class GraphLibraryTest {
 
     @Test
     public void DFSTest() {
-        Grafo grafo = new Grafo();
-        Vertice vertice1 = grafo.addVertice(1);
-        Vertice vertice2 = grafo.addVertice(2);
-        Vertice vertice3 = grafo.addVertice(3);
-        Vertice vertice4 = grafo.addVertice(4);
-
-        grafo.addAresta(vertice1, vertice2, 0);
-        grafo.addAresta(vertice2, vertice4, 0);
-        grafo.addAresta(vertice1, vertice3, 0);
+        Grafo grafo = controller.readGraph("src/test/resources/entrada.txt");
 
         String realDFS = "1: 0 -" + System.lineSeparator() +
                 "2: 1 1" + System.lineSeparator()+
-                "4: 2 2" + System.lineSeparator()+
-                "3: 1 1" + System.lineSeparator();
-        Assert.assertEquals(realDFS, controller.DFS(grafo, vertice1));
+                "5: 2 2" + System.lineSeparator()+
+                "3: 3 5" + System.lineSeparator()+
+                "4: 4 3" + System.lineSeparator();
+        Assert.assertEquals(realDFS, controller.DFS(grafo, grafo.getVertices().get(0)));
     }
 
     @Test
@@ -76,19 +61,7 @@ public class GraphLibraryTest {
 
     @Test
     public void mstTest() {
-        Grafo grafo = new Grafo();
-        Vertice v1 = grafo.addVertice(1);
-        Vertice v2 = grafo.addVertice(2);
-        Vertice v3 = grafo.addVertice(3);
-        Vertice v4 = grafo.addVertice(4);
-        Vertice v5 = grafo.addVertice(5);
-
-        grafo.addAresta(v1, v2, 0.1);
-        grafo.addAresta(v2, v5, 0.2);
-        grafo.addAresta(v5, v3, 5);
-        grafo.addAresta(v3, v4, -9.5);
-        grafo.addAresta(v4, v5, 2.3);
-        grafo.addAresta(v1, v5, 1);
+        Grafo grafo = controller.readWeightedGraph("src/test/resources/entradaComPeso.txt");
 
         String esperado = "VI: 3 VF: 4 Peso: -9.5" + "\n" +
                             "VI: 1 VF: 2 Peso: 0.1" + "\n" +
