@@ -9,10 +9,25 @@ public interface GraphLibrary {
 
     Grafo readWeightedGraph(String path);
 
+    /**
+     * Calcula o número de vértices do Grafo.
+     *
+     * @param grafo Grafo a ter o número de Vértices calculado.
+     *
+     * @return número de vértices.
+     */
     int getVertexNumber(Grafo grafo);
 
     int getEdgeNumber(Grafo grafo);
 
+    /**
+     * Calcula o grau médio de um Grafo, sendo o número 2E/V,
+     * onde E é número de arestas e V o número de vértices.
+     *
+     * @param grafo Grafo a ter grau médio calculado.
+     *
+     * @return Grau médio do Grafo.
+     */
     float getMeanEdge(Grafo grafo);
 
     String graphRepresentation(Grafo grafo, String type);

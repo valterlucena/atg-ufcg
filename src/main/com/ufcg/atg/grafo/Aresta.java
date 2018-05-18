@@ -1,5 +1,7 @@
 package main.com.ufcg.atg.grafo;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Aresta {
@@ -38,6 +40,14 @@ public class Aresta {
         this.peso = peso;
     }
 
+    public List<Vertice> getExtremidades() {
+        List<Vertice> extremidades = new ArrayList<>();
+        extremidades.add(this.getInicio());
+        extremidades.add(this.getFim());
+
+        return extremidades;
+    }
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
