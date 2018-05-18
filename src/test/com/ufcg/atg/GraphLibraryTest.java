@@ -157,4 +157,12 @@ public class GraphLibraryTest {
 
         Assert.assertEquals(realBFS, BFSResult);
     }
+
+    @Test
+    public void connectedTest() {
+        Grafo conectado = controller.readGraph("src/test/resources/entrada.txt");
+        Grafo desconectado = controller.readGraph("src/test/resources/entradaDesconectada.txt");
+        Assert.assertTrue(controller.connected(conectado));
+        Assert.assertFalse(controller.connected(desconectado));
+    }
 }

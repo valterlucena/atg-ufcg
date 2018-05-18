@@ -105,7 +105,7 @@ public class GrafoController implements GraphLibrary {
         boolean[] visitados = new boolean[grafo.getSize()+1];
         List<Vertice> vertices = grafo.getVertices();
         if (vertices.size() > 1) { // trivialmente, um grafo nulo ou com apenas um vertice é conectado
-            Vertice primeiro = vertices.get(1);
+            Vertice primeiro = vertices.get(ZERO);
             this.visita(primeiro, visitados);
             for (int i = 1; i < visitados.length; i++) {
                 if (!visitados[i]) return false;
@@ -280,9 +280,9 @@ public class GrafoController implements GraphLibrary {
     private String formatMatrixAdj(int[][] matriz) {
         String result = "  ";
 
-        for (int i = 0; i < matriz.length; i++) {
-            for (int j = 0; j < matriz.length; j++) {
-                if (i == 0 && j == 0) {
+        for (int i = ZERO; i < matriz.length; i++) {
+            for (int j = ZERO; j < matriz.length; j++) {
+                if (i == ZERO && j == ZERO) {
                     continue;
                 } else {
                     result += matriz[i][j] + " ";
@@ -335,9 +335,9 @@ public class GrafoController implements GraphLibrary {
     private String formatMatrizPeso(double[][] pesos, Grafo grafo) {
         String result = "";
         result += "   1   2   3   4   5" + "\n";
-        for (int i = 0; i < grafo.getVertices().size(); i++) {
+        for (int i = ZERO; i < grafo.getVertices().size(); i++) {
             result += (i+1) + " ";
-            for (int j = 0; j < pesos.length; j++) {
+            for (int j = ZERO; j < pesos.length; j++) {
                 result += pesos[i][j] + " ";
             } result += "\n";
         } return result;
@@ -357,8 +357,8 @@ public class GrafoController implements GraphLibrary {
         }
 
         for (Vertice vertice: setVertices) {
-            matriz[indice][0] = vertice.getId();
-            matriz[0][indice] = vertice.getId();
+            matriz[indice][ZERO] = vertice.getId();
+            matriz[ZERO][indice] = vertice.getId();
             indice++;
         }
 
@@ -392,11 +392,11 @@ public class GrafoController implements GraphLibrary {
         List listaAdj = new ArrayList<>();
         Vertice[] arrayVertices = this.criaArrayVertices(grafo);
 
-        for (int i = 0; i < numeroVertices; i++) {
+        for (int i = ZERO; i < numeroVertices; i++) {
 
             List aux = new ArrayList();
 
-            for (int j = 0; j < arestas.size(); j++) {
+            for (int j = ZERO; j < arestas.size(); j++) {
                 int inicio = arestas.get(j).getInicio().getId();
                 int fim = arestas.get(j).getFim().getId();
 
@@ -422,10 +422,10 @@ public class GrafoController implements GraphLibrary {
         List listaAdj = new ArrayList<>();
         Vertice[] arrayVertices = this.criaArrayVertices(grafo);
 
-        for (int i = 0; i < numeroVertices; i++) {
+        for (int i = ZERO; i < numeroVertices; i++) {
 
             List aux = new ArrayList();
-            for (int j = 0; j < arestas.size(); j++) {
+            for (int j = ZERO; j < arestas.size(); j++) {
 
                 int inicio = arestas.get(j).getInicio().getId();
                 int fim = arestas.get(j).getFim().getId();
@@ -446,19 +446,19 @@ public class GrafoController implements GraphLibrary {
     @Override
     public String mst(Grafo grafo) {
         String result = "";
-        double pesoMst = 0;
+        double pesoMst = ZERO;
 
         int size = grafo.getVertices().size();
         int[] pai = new int[size + 1];
 
-        for (int i = 0; i < pai.length; i++) {
+        for (int i = ZERO; i < pai.length; i++) {
             pai[i] = i;
         }
 
         List<Aresta> arestas = grafo.getArestas();
         this.ordenaList(arestas);
 
-        for (int i = 0; i < arestas.size(); i++) {
+        for (int i = ZERO; i < arestas.size(); i++) {
             int inicio = arestas.get(i).getInicio().getId();
             int fim = arestas.get(i).getFim().getId();
             double peso = arestas.get(i).getPeso();
@@ -482,7 +482,7 @@ public class GrafoController implements GraphLibrary {
         Collections.sort(arestas, new Comparator<Aresta>() {
             @Override
             public int compare(Aresta aresta, Aresta aresta2) {
-                int result = 0;
+                int result = ZERO;
                 if (aresta.getPeso() > aresta2.getPeso()) {
                     result = 1;
                 } else if (aresta.getPeso() < aresta2.getPeso()) {
