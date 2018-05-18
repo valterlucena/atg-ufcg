@@ -106,14 +106,6 @@ public class GraphLibraryTest {
         String saida2 = "{1=[2(0.1), 5(1.0)], 2=[1(0.1), 5(0.2)], 3=[4(-9.5), 5(5.0)], 4=[3(-9.5), 5(2.3)], 5=[1(1.0), 2(0.2), 3(5.0), 4(2.3)]}";
         Assert.assertEquals(lista, saida2);
     }
-  
-    public void shortestPath() {
-        Grafo grafo = controller.readWeightedGraph("src/test/resources/entradaComPeso.txt");
-        String lista = controller.graphRepresentation(grafo, "AL");
-        String saida2 = "{1=[2(0.1), 5(1.0)], 2=[1(0.1), 5(0.2)], 3=[4(-9.5), 5(5.0)], 4=[3(-9.5), 5(2.3)], 5=[1(1.0), 2(0.2), 3(5.0), 4(2.3)]}";
-        Assert.assertEquals(lista, saida2);
-
-    }
 
     @Test
     public void shortestPath() {
