@@ -91,7 +91,7 @@ public class GraphLibraryTest {
 
     @Test
     public void shortestPath() {
-        Grafo grafo = controller.readWeightedGraph("src/test/resources/entrada.txt");
+        Grafo grafo = controller.readWeightedGraph("src/test/resources/entradaComPeso.txt");
 
         Vertice verticeInicial = grafo.getVertices().get(0);
 
