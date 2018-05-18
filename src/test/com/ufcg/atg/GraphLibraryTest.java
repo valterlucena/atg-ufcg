@@ -7,9 +7,13 @@ import main.com.ufcg.atg.grafo.Grafo;
 import main.com.ufcg.atg.grafo.Vertice;
 import org.junit.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class GraphLibraryTest {
 
     private GraphLibrary controller = new GrafoController();
+    private GrafoController c = new GrafoController();
 
     @Test
     public void getMeanEdgeTest() {
@@ -77,19 +81,7 @@ public class GraphLibraryTest {
 
     @Test
     public void representacionGraphTest() {
-        Grafo grafo = new Grafo();
-
-        Vertice v1 = new Vertice(1);
-        Vertice v2 = new Vertice(2);
-        Vertice v3 = new Vertice(3);
-        Vertice v4 = new Vertice(4);
-        Vertice v5 = new Vertice(5);
-
-        grafo.addAresta(v1, v2, 0.1);
-        grafo.addAresta(v2, v5, 0.2);
-        grafo.addAresta(v3, v5, 5);
-        grafo.addAresta(v3, v4, -9.5);
-        grafo.addAresta(v1, v5, 1);
+        Grafo grafo = controller.readGraph("entrada/entrada.txt");
 
         String esperada =   "  1 2 3 4 5 " + "\n" +
                             "1 0 1 0 0 1 " + "\n" +
@@ -98,8 +90,12 @@ public class GraphLibraryTest {
                             "4 0 0 1 0 1 " + "\n" +
                             "5 1 1 1 1 0 " + "\n";
 
+        String list = "{1=[2, 5], 2=[1, 5], 3=[4, 5], 4=[3, 5], 5=[1, 2, 3, 4]}";
+        Assert.assertEquals(list, controller.graphRepresentation(grafo, "AL"));
         Assert.assertEquals(esperada, controller.graphRepresentation(grafo, "AM"));
 
+
     }
+
 
 }
