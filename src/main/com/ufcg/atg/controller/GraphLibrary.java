@@ -44,6 +44,17 @@ public interface GraphLibrary {
      */
     String BFS(Grafo grafo, Vertice vertice);
 
+    /**
+     * Percorre o grafo utilizando busca em profundidade, dado um vértice inicial
+     * fornecido.
+     *
+     * @param grafo
+     *      Grafo a ser percorrido
+     * @param vertice
+     *      Vértice a partir do qual a busca será iniciada
+     * @return String que representa o resultado da busca, cada linha representa
+     *      um vértice do grafo, seguido de sua profundidade e seu pai.
+     */
     String DFS(Grafo grafo, Vertice vertice);
 
     boolean connected(Grafo grafo);

@@ -180,6 +180,20 @@ public class GrafoController implements GraphLibrary {
         return DFS(graph, vertex, null, ZERO, new HashSet<>());
     }
 
+    /**
+     * Método auxiliar que implementa a lógica da busca em profundidade.
+     * @param graph
+     *      Grafo a ser percorrido
+     * @param vertex
+     *      Vértice inicial
+     * @param parent
+     *      Vértice pai
+     * @param depth
+     *      Profundidade do vértice
+     * @param visited
+     *      Conjunto de todos os vértices que já foram visitados
+     * @return
+     */
     private String DFS(Grafo graph, Vertice vertex, Vertice parent, int depth, Set<Vertice> visited) {
         StringBuilder output = new StringBuilder();
         output.append(vertex.getId());
