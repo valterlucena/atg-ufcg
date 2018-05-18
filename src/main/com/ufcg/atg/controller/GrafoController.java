@@ -176,7 +176,9 @@ public class GrafoController implements GraphLibrary {
     }
 
     /**
-     * Popula o Array de pais com posições vazias.
+     * Popula o 
+     
+    de pais com posições vazias.
      *
      * @param pai
      */
@@ -241,27 +243,64 @@ public class GrafoController implements GraphLibrary {
         if (type.equalsIgnoreCase(MATRIZADJACENCIA)) {
             int[][] matrizAdj = this.matrixAdj(grafo);
             result = this.formatMatrixAdj(matrizAdj);
+
         } else if (type.equalsIgnoreCase(LISTAADJACENCIA)) {
-            List<List> listaAdj = this.listAdj(grafo);
-            result = this.formatListAdj(listaAdj);
+            result = listAdj(grafo).toString();
+
         } return result;
     }
 
+    public String graphRepresentacion(Grafo grafo, String type, boolean peso) {
+        String result = "";
+
+        if (peso) {
+
+            if (type.equalsIgnoreCase(MATRIZADJACENCIA)) {
+                double[][] pesos = this.matrizAdjPeso(grafo);
+                result = this.formatMatrizPeso(pesos, grafo);
+
+            } else if (type.equalsIgnoreCase(LISTAADJACENCIA)) {
+                Map mapa = this.listAdjPeso(grafo);
+                result = mapa.toString();
+            }
+        } else {
+            result = this.graphRepresentation(grafo, type);
+        }
+        return result;
+    }
+
+    /***
+     * Método responsável pela formatação da saída da matriz de adjacência.
+     * @param matriz
+     * @return
+     */
     private String formatMatrixAdj(int[][] matriz) {
-        return null;
+        String result = "  ";
+
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz.length; j++) {
+                if (i == 0 && j == 0) {
+                    continue;
+                } else {
+                    result += matriz[i][j] + " ";
+                }
+            } result += "\n";
+        } return result;
+
     }
 
-    private String formatListAdj(List<List> matriz) {
-        return null;
-    }
-
-    public int[][] matrixAdj(Grafo grafo) {
+    /***
+     * Gera a matriz de adjacência do grafo.
+     * @param grafo
+     * @return
+     */
+    private int[][] matrixAdj(Grafo grafo) {
         int size = this.getVertexNumber(grafo) + 1;
         int[][] matriz = new int[size][size];
         this.iniciaMatriz(grafo, matriz);
         List<Aresta> arestas = grafo.getArestas();
 
-        for (int i = 1; i < size; i++) {
+        for (int i = 1; i <= size; i++) {
             int inicio = arestas.get(i-1).getInicio().getId();
             int fim = arestas.get(i-1).getFim().getId();
             for (int j = 1; j < size; j++) {
@@ -273,6 +312,39 @@ public class GrafoController implements GraphLibrary {
         return matriz;
     }
 
+    private double[][] matrizAdjPeso(Grafo grafo) {
+
+        List<Aresta> arestas = grafo.getArestas();
+        int size = this.getVertexNumber(grafo);
+        int[][] m = this.matrixAdj(grafo);
+        double[][] pesos = new double[size][size];
+        for (int i = 1; i <= size; i++) {
+            for (int j = 1; j <= size; j++) {
+                if (m[i][j] == 1) {
+                    pesos[i-1][j-1] = arestas.get(i).getPeso();
+                }
+            }
+        } return pesos;
+
+
+    }
+
+    private String formatMatrizPeso(double[][] pesos, Grafo grafo) {
+        String result = "";
+        result += "   1   2   3   4   5" + "\n";
+        for (int i = 0; i < grafo.getVertices().size(); i++) {
+            result += (i+1) + " ";
+            for (int j = 0; j < pesos.length; j++) {
+                result += pesos[i][j] + " ";
+            } result += "\n";
+        } return result;
+    }
+
+    /**
+     * Inicia a matriz com os vértices na primeira linha e coluna e com zeros nas outras posições.
+     * @param grafo
+     * @param matriz
+     */
     private void iniciaMatriz(Grafo grafo, int[][] matriz) {
         int indice = 1;
         Set<Vertice> setVertices = new HashSet<Vertice>();
@@ -289,6 +361,11 @@ public class GrafoController implements GraphLibrary {
 
     }
 
+    /**
+     * Cria um array de vértices para o grafo.
+     * @param grafo
+     * @return
+     */
     private Vertice[] criaArrayVertices(Grafo grafo) {
         Set<Vertice> setVertices = new HashSet<Vertice>();
         List<Vertice> vertices = grafo.getVertices();
@@ -299,18 +376,24 @@ public class GrafoController implements GraphLibrary {
         return arrayVertices;
     }
 
-    public List<List> listAdj(Grafo grafo) {
+    /**
+     * Gera a lista de adjacência do grafo.
+     * @param grafo
+     * @return
+     */
+    private Map listAdj(Grafo grafo) {
         List<Aresta> arestas = grafo.getArestas();
         int numeroVertices = this.getVertexNumber(grafo);
 
+        Map map = new HashMap();
         List listaAdj = new ArrayList<>();
         Vertice[] arrayVertices = this.criaArrayVertices(grafo);
 
-        for (int i = ZERO; i < numeroVertices; i++) {
-            List aux = new ArrayList();
-            aux.add(arrayVertices[i].getId());
-            for (int j = ZERO; j < arestas.size(); j++) {
+        for (int i = 0; i < numeroVertices; i++) {
 
+            List aux = new ArrayList();
+
+            for (int j = 0; j < arestas.size(); j++) {
                 int inicio = arestas.get(j).getInicio().getId();
                 int fim = arestas.get(j).getFim().getId();
 
@@ -321,17 +404,121 @@ public class GrafoController implements GraphLibrary {
                 }
             }
 
-            Collections.sort(aux.subList(1, aux.size()));
-            listaAdj.add(aux);
-        }
+            Collections.sort(aux);
+            map.put(arrayVertices[i], aux);
 
-        return listaAdj;
+        }
+        return map;
     }
 
+    private Map listAdjPeso(Grafo grafo) {
+        List<Aresta> arestas = grafo.getArestas();
+        int numeroVertices = this.getVertexNumber(grafo);
+
+        Map map = new HashMap();
+        List listaAdj = new ArrayList<>();
+        Vertice[] arrayVertices = this.criaArrayVertices(grafo);
+
+        for (int i = 0; i < numeroVertices; i++) {
+
+            List aux = new ArrayList();
+            for (int j = 0; j < arestas.size(); j++) {
+
+                int inicio = arestas.get(j).getInicio().getId();
+                int fim = arestas.get(j).getFim().getId();
+
+                if (arrayVertices[i].getId() == inicio) {
+                    aux.add(fim + "(" + arestas.get(j).getPeso() + ")");
+                } else if (arrayVertices[i].getId() == fim) {
+                    aux.add(inicio + "(" + arestas.get(j).getPeso() + ")");
+                }
+            }
+
+            Collections.sort(aux);
+            map.put(arrayVertices[i], aux);
+        }
+        return map;
+    }
+
+    /**
+     * Método que informa a árvore mínima geradora
+     * @param grafo Grafo que terá sua árvore gerada
+     * @return String com o vértice inicial, final, e o peso entre os dois vértices.
+     */
     @Override
     public String mst(Grafo grafo) {
-        return null;
+        String result = "";
+        double pesoMst = 0;
+
+        int size = grafo.getVertices().size();
+        int[] pai = new int[size + 1];
+
+        for (int i = 0; i < pai.length; i++) {
+            pai[i] = i;
+        }
+
+        List<Aresta> arestas = grafo.getArestas();
+        this.ordenaList(arestas);
+
+        for (int i = 0; i < arestas.size(); i++) {
+            int inicio = arestas.get(i).getInicio().getId();
+            int fim = arestas.get(i).getFim().getId();
+            double peso = arestas.get(i).getPeso();
+
+            if (this.find(pai, inicio) != this.find(pai, fim)) {
+                this.uniao(pai, inicio, fim);
+                pesoMst += peso;
+                result += "VI: " + inicio + " VF: " + fim + " Peso: " + peso + "\n";
+            }
+        }
+
+         return result;
+
     }
+
+    /**
+     * Ordena uma lista de arestas pelo peso.
+     * @param arestas
+     */
+    private void ordenaList(List<Aresta> arestas) {
+        Collections.sort(arestas, new Comparator<Aresta>() {
+            @Override
+            public int compare(Aresta aresta, Aresta aresta2) {
+                int result = 0;
+                if (aresta.getPeso() > aresta2.getPeso()) {
+                    result = 1;
+                } else if (aresta.getPeso() < aresta2.getPeso()) {
+                    result = -1;
+                } return result;
+            }
+        });
+    }
+
+    /**
+     * Conecta dois vértices.
+     * @param pai
+     * @param inicio
+     * @param fim
+     */
+    private void uniao(int[] pai, int inicio, int fim) {
+        int a = find(pai, inicio);
+        int b = find(pai, fim);
+        pai[a] = b;
+
+    }
+
+    /**
+     * Encontrar o pai do vértice.
+     * @param pai
+     * @param verticeId
+     * @return
+     */
+    private int find(int[] pai, int verticeId) {
+        if (pai[verticeId] == verticeId) {
+            return verticeId;
+        } return find(pai, pai[verticeId]);
+    }
+
 
     /**
      * Encontra o caminho mais curto entre dois vértices.
