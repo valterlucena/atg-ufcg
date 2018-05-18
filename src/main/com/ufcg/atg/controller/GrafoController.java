@@ -7,6 +7,7 @@ import main.com.ufcg.atg.grafo.Grafo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class GrafoController implements GraphLibrary {
@@ -183,21 +184,48 @@ public class GrafoController implements GraphLibrary {
             int[][] matrizAdj = this.matrixAdj(grafo);
             result = this.formatMatrixAdj(matrizAdj);
         } else if (type.equalsIgnoreCase(LISTAADJACENCIA)) {
-            List<List> listaAdj = this.listAdj(grafo);
-            result = this.formatListAdj(listaAdj);
+            //Map listaAdj = this.listAdj(grafo);
+            //result = this.formatListAdj(listaAdj);
+            return null;
         } return result;
     }
 
+    /***
+     * Método responsável pela formatação da saída da matriz de adjacência.
+     * @param matriz
+     * @return
+     */
     private String formatMatrixAdj(int[][] matriz) {
+        String result = "  ";
 
-        return null;
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz.length; j++) {
+                if (i == 0 && j == 0) {
+                    continue;
+                } else {
+                    result += matriz[i][j] + " ";
+                }
+            } result += "\n";
+        } return result;
+
     }
 
-    private String formatListAdj(List<List> matriz) {
-        return null;
+    /***
+     * Responsável por formatar a saída da lista de adjacência.
+     * @param mapa
+     * @return
+     */
+    public String formatListAdj(Map mapa) {
+       return null;
     }
 
-    public int[][] matrixAdj(Grafo grafo) {
+
+    /***
+     * Gera a matriz de adjacência do grafo.
+     * @param grafo
+     * @return
+     */
+    private int[][] matrixAdj(Grafo grafo) {
         int size = this.getVertexNumber(grafo) + 1;
         int[][] matriz = new int[size][size];
         this.iniciaMatriz(grafo, matriz);
@@ -215,6 +243,11 @@ public class GrafoController implements GraphLibrary {
         return matriz;
     }
 
+    /**
+     * Inicia a matriz com os vértices na primeira linha e coluna e com zeros nas outras posições.
+     * @param grafo
+     * @param matriz
+     */
     private void iniciaMatriz(Grafo grafo, int[][] matriz) {
         int indice = 1;
         Set<Vertice> setVertices = new HashSet<Vertice>();
@@ -231,6 +264,11 @@ public class GrafoController implements GraphLibrary {
 
     }
 
+    /**
+     * Cria um array de vértices para o grafo.
+     * @param grafo
+     * @return
+     */
     private Vertice[] criaArrayVertices(Grafo grafo) {
         Set<Vertice> setVertices = new HashSet<Vertice>();
         List<Vertice> vertices = grafo.getVertices();
@@ -241,36 +279,52 @@ public class GrafoController implements GraphLibrary {
         return arrayVertices;
     }
 
-    private List<List> listAdj(Grafo grafo) {
+    /**
+     * Gera a lista de adjacência do grafo.
+     * @param grafo
+     * @return
+     */
+    public Map listAdj(Grafo grafo) {
         List<Aresta> arestas = grafo.getArestas();
         int numeroVertices = this.getVertexNumber(grafo);
 
+        Map map = new HashMap();
         List listaAdj = new ArrayList<>();
         Vertice[] arrayVertices = this.criaArrayVertices(grafo);
 
         for (int i = 0; i < numeroVertices; i++) {
+
             List aux = new ArrayList();
-            aux.add(arrayVertices[i].getId());
+            //aux.add(arrayVertices[i].getId());
             for (int j = 0; j < arestas.size(); j++) {
 
                 int inicio = arestas.get(j).getInicio().getId();
                 int fim = arestas.get(j).getFim().getId();
 
                 if (arrayVertices[i].getId() == inicio) {
+                    //map.put(arrayVertices[i], fim);
                     aux.add(fim);
                 } else if (arrayVertices[i].getId() == fim) {
+                    //map.put(arrayVertices[i], inicio);
+
                     aux.add(inicio);
                 }
             }
 
-            Collections.sort(aux.subList(1, aux.size()));
-            listaAdj.add(aux);
+            Collections.sort(aux);
+            map.put(arrayVertices[i], aux);
+            //listaAdj.add(aux);
         }
-
-        return listaAdj;
+        return map;
+        //return listaAdj;
     }
 
 
+    /**
+     * Gera o menor caminho.
+     * @param grafo
+     * @return
+     */
     @Override
     public String mst(Grafo grafo) {
         String result = "";
@@ -302,6 +356,10 @@ public class GrafoController implements GraphLibrary {
 
     }
 
+    /**
+     * Ordena uma lista de arestas pelo peso.
+     * @param arestas
+     */
     private void ordenaList(List<Aresta> arestas) {
         Collections.sort(arestas, new Comparator<Aresta>() {
             @Override
@@ -316,7 +374,12 @@ public class GrafoController implements GraphLibrary {
         });
     }
 
-
+    /**
+     * Conecta dois vértices.
+     * @param pai
+     * @param inicio
+     * @param fim
+     */
     private void uniao(int[] pai, int inicio, int fim) {
         int a = find(pai, inicio);
         int b = find(pai, fim);
@@ -324,6 +387,12 @@ public class GrafoController implements GraphLibrary {
 
     }
 
+    /**
+     * Encontrar o pai do vértice.
+     * @param pai
+     * @param verticeId
+     * @return
+     */
     private int find(int[] pai, int verticeId) {
         if (pai[verticeId] == verticeId) {
             return verticeId;
