@@ -238,12 +238,25 @@ public class GrafoController implements GraphLibrary {
         return output.toString();
     }
 
+    private boolean ehPesoZero(Grafo grafo) {
+        List<Aresta> arestas = grafo.getArestas();
+        double pesos = 0.0;
+        for (int i = 0; i < arestas.size(); i++) {
+            pesos += arestas.get(i).getPeso();
+        }
+
+        return (pesos == 0.0);
+    }
+
     @Override
     public String graphRepresentation(Grafo grafo, String type) {
 
         String result = "";
 
-        if (type.equalsIgnoreCase(MATRIZADJACENCIA)) {
+        if (!ehPesoZero(grafo)) {
+            result = graphRepresentacion(grafo, type, true);
+        }
+        else if (type.equalsIgnoreCase(MATRIZADJACENCIA)) {
             int[][] matrizAdj = this.matrixAdj(grafo);
             result = this.formatMatrixAdj(matrizAdj);
 
@@ -253,7 +266,7 @@ public class GrafoController implements GraphLibrary {
         } return result;
     }
 
-    public String graphRepresentacion(Grafo grafo, String type, boolean peso) {
+    private String graphRepresentacion(Grafo grafo, String type, boolean peso) {
         String result = "";
 
         if (peso) {
@@ -266,9 +279,9 @@ public class GrafoController implements GraphLibrary {
                 Map mapa = this.listAdjPeso(grafo);
                 result = mapa.toString();
             }
-        } else {
+        } /*else {
             result = this.graphRepresentation(grafo, type);
-        }
+        }*/
         return result;
     }
 
