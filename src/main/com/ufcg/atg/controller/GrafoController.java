@@ -1,4 +1,3 @@
-
 package main.com.ufcg.atg.controller;
 
 import main.com.ufcg.atg.grafo.Vertice;
@@ -16,7 +15,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.Queue;
 import java.util.PriorityQueue;
-
 
 public class GrafoController implements GraphLibrary {
 
@@ -151,7 +149,6 @@ public class GrafoController implements GraphLibrary {
 
             saida.append(NOVA_LINHA);
         }
-
         return saida.toString();
     }
 
@@ -161,7 +158,7 @@ public class GrafoController implements GraphLibrary {
      * @param pai
      */
     private void setPai(Vertice[] pai) {
-        for (int i = 0; i < pai.length; i++) {
+        for (int i = ZERO; i < pai.length; i++) {
             pai[i] = null;
         }
     }
@@ -173,7 +170,7 @@ public class GrafoController implements GraphLibrary {
      * @param nivel
      */
     private void setNivel(int[] nivel) {
-        for (int i = 0; i < nivel.length; i++) {
+        for (int i = ZERO; i < nivel.length; i++) {
             nivel[i] = INFINITO;
         }
     }
@@ -271,10 +268,10 @@ public class GrafoController implements GraphLibrary {
         List listaAdj = new ArrayList<>();
         Vertice[] arrayVertices = this.criaArrayVertices(grafo);
 
-        for (int i = 0; i < numeroVertices; i++) {
+        for (int i = ZERO; i < numeroVertices; i++) {
             List aux = new ArrayList();
             aux.add(arrayVertices[i].getId());
-            for (int j = 0; j < arestas.size(); j++) {
+            for (int j = ZERO; j < arestas.size(); j++) {
 
                 int inicio = arestas.get(j).getInicio().getId();
                 int fim = arestas.get(j).getFim().getId();
@@ -292,7 +289,6 @@ public class GrafoController implements GraphLibrary {
 
         return listaAdj;
     }
-
 
     @Override
     public String mst(Grafo grafo) {
@@ -359,7 +355,7 @@ public class GrafoController implements GraphLibrary {
      * @param distancias
      */
     private void setDistancias(Vertice[] distancias) {
-        for (int i = 0; i < distancias.length; i++) {
+        for (int i = ZERO; i < distancias.length; i++) {
             distancias[i] = new Vertice(i);
         }
     }
