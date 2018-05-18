@@ -30,6 +30,12 @@ public interface GraphLibrary {
      */
     float getMeanEdge(Grafo grafo);
 
+    /***
+     * Faz a impressão da matriz e lista de adjacência do grafo
+     * @param grafo
+     * @param type
+     * @return matriz ou lista de adjacência
+     */
     String graphRepresentation(Grafo grafo, String type);
 
     /**
@@ -60,6 +66,11 @@ public interface GraphLibrary {
      */
     String shortestPath(Grafo graph, Vertice v1, Vertice v2);
 
+    /**
+     * Gera o menor caminho.
+     * @param grafo
+     * @return String composta do vértice pai, vértice filho e o entre eles.
+     */
     String mst(Grafo grafo);
 
 }
