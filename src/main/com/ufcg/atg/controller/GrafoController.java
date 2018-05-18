@@ -196,7 +196,7 @@ public class GrafoController implements GraphLibrary {
         return null;
     }
 
-    public int[][] matrixAdj(Grafo grafo) {
+    private int[][] matrixAdj(Grafo grafo) {
         int size = this.getVertexNumber(grafo) + 1;
         int[][] matriz = new int[size][size];
         this.iniciaMatriz(grafo, matriz);
@@ -240,7 +240,7 @@ public class GrafoController implements GraphLibrary {
         return arrayVertices;
     }
 
-    public List<List> listAdj(Grafo grafo) {
+    private List<List> listAdj(Grafo grafo) {
         List<Aresta> arestas = grafo.getArestas();
         int numeroVertices = this.getVertexNumber(grafo);
 
@@ -272,8 +272,63 @@ public class GrafoController implements GraphLibrary {
 
     @Override
     public String mst(Grafo grafo) {
-        return null;
+        String result = "";
+        double pesoMst = 0;
+
+        int size = grafo.getVertices().size();
+        int[] pai = new int[size + 1];
+
+        for (int i = 0; i < pai.length; i++) {
+            pai[i] = i;
+        }
+
+        List<Aresta> arestas = grafo.getArestas();
+        this.ordenaList(arestas);
+
+        for (int i = 0; i < arestas.size(); i++) {
+            int inicio = arestas.get(i).getInicio().getId();
+            int fim = arestas.get(i).getFim().getId();
+            double peso = arestas.get(i).getPeso();
+
+            if (this.find(pai, inicio) != this.find(pai, fim)) {
+                this.uniao(pai, inicio, fim);
+                pesoMst += peso;
+                result += "VI: " + inicio + " VF: " + fim + " Peso: " + peso + "\n";
+            }
+        }
+
+         return result;
+
     }
+
+    private void ordenaList(List<Aresta> arestas) {
+        Collections.sort(arestas, new Comparator<Aresta>() {
+            @Override
+            public int compare(Aresta aresta, Aresta aresta2) {
+                int result = 0;
+                if (aresta.getPeso() > aresta2.getPeso()) {
+                    result = 1;
+                } else if (aresta.getPeso() < aresta2.getPeso()) {
+                    result = -1;
+                } return result;
+            }
+        });
+    }
+
+
+    private void uniao(int[] pai, int inicio, int fim) {
+        int a = find(pai, inicio);
+        int b = find(pai, fim);
+        pai[a] = b;
+
+    }
+
+    private int find(int[] pai, int verticeId) {
+        if (pai[verticeId] == verticeId) {
+            return verticeId;
+        } return find(pai, pai[verticeId]);
+    }
+
 
     /**
      * Encontra o caminho mais curto entre dois vértices.
