@@ -12,7 +12,8 @@ public interface GraphLibrary {
     /**
      * Calcula o número de vértices do Grafo.
      *
-     * @param grafo Grafo a ter o número de Vértices calculado.
+     * @param grafo
+     *      Grafo a ter o número de Vértices calculado.
      *
      * @return número de vértices.
      */
@@ -24,7 +25,8 @@ public interface GraphLibrary {
      * Calcula o grau médio de um Grafo, sendo o número 2E/V,
      * onde E é número de arestas e V o número de vértices.
      *
-     * @param grafo Grafo a ter grau médio calculado.
+     * @param grafo
+     *      Grafo a ter grau médio calculado.
      *
      * @return Grau médio do Grafo.
      */
@@ -33,7 +35,10 @@ public interface GraphLibrary {
     /***
      * Faz a impressão da matriz e lista de adjacência do grafo
      * @param grafo
+     *      Grafo do qual será feito a representação
      * @param type
+     *      Informa o tipo da representação (AM: Matriz de adjacência, AL: Lista de
+     *      adjacência)
      * @return matriz ou lista de adjacência
      */
     String graphRepresentation(Grafo grafo, String type);
@@ -43,7 +48,9 @@ public interface GraphLibrary {
      * fornecido.
      *
      * @param grafo
+     *      Grafo a ser percorrido
      * @param vertice
+     *      Vértice a  partir do qual a busca será iniciada.
      *
      * @return String representando a árvore de busca gerada, com o nível de cada vértice na árvore.
      * A árvore gerada é descrita informando o pai de cada vértice e seu nível na String de saída.
@@ -66,7 +73,8 @@ public interface GraphLibrary {
     /**
      * Informa se é o grafo é conectado ou não, verificando se existem
      * caminhos entre quaisquer dois vértices que pertencem ao grafo.
-     * @param grafo Grafo cuja conectividade será verificada.
+     * @param grafo
+     *      Grafo cuja conectividade será verificada.
      * @return Boolean informando se o grafo é conectado.
      */
     boolean connected(Grafo grafo);
@@ -75,6 +83,7 @@ public interface GraphLibrary {
      * Encontra o caminho mais curto entre dois vértices.
      *
      * @param graph
+     *      Grafo que será percorrido para encontrar o caminho mais curto.
      * @param v1 Vértice Origem
      * @param v2 Vértice Destino
      *           
@@ -84,9 +93,10 @@ public interface GraphLibrary {
     String shortestPath(Grafo graph, Vertice v1, Vertice v2);
 
     /**
-     * Gera o menor caminho.
+     * Método que informa a árvore mínima geradora
      * @param grafo
-     * @return String composta do vértice pai, vértice filho e o entre eles.
+     *      Grafo que terá sua árvore gerada
+     * @return String com o vértice inicial, final, e o peso entre os dois vértices.
      */
     String mst(Grafo grafo);
 

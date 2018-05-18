@@ -133,8 +133,8 @@ public class GrafoController implements GraphLibrary {
         StringBuilder saida = new StringBuilder();
         Queue<Vertice> fila = new LinkedList<>();
 
-        int[] nivel = new int[grafo.getSize()];
-        Vertice[] pai = new Vertice[grafo.getSize()];
+        int[] nivel = new int[grafo.getSize() + 1];
+        Vertice[] pai = new Vertice[grafo.getSize() + 1];
 
         setNivel(nivel);
         setPai(pai);
@@ -158,7 +158,7 @@ public class GrafoController implements GraphLibrary {
         }
 
         // Monta saída
-        for (int i = 1; i < grafo.getSize(); i++) {
+        for (int i = 1; i < grafo.getSize() + 1; i++) {
             saida.append(i + " - ");
 
             if (nivel[i] == INFINITO) {
@@ -183,7 +183,7 @@ public class GrafoController implements GraphLibrary {
      
     de pais com posições vazias.
      *
-     * @param pai
+     * @param pai Array dos vértices pai que serão inicializados.
      */
     private void setPai(Vertice[] pai) {
         for (int i = ZERO; i < pai.length; i++) {
@@ -195,7 +195,7 @@ public class GrafoController implements GraphLibrary {
      * Popula o Array de niveis com infinito. Que representa o nível máximo
      * teórico que um gráfo pode chegar.
      *
-     * @param nivel
+     * @param nivel Array dos níveis que serão inicializados.
      */
     private void setNivel(int[] nivel) {
         for (int i = ZERO; i < nivel.length; i++) {
@@ -443,11 +443,6 @@ public class GrafoController implements GraphLibrary {
         return map;
     }
 
-    /**
-     * Método que informa a árvore mínima geradora
-     * @param grafo Grafo que terá sua árvore gerada
-     * @return String com o vértice inicial, final, e o peso entre os dois vértices.
-     */
     @Override
     public String mst(Grafo grafo) {
         String result = "";
@@ -535,7 +530,7 @@ public class GrafoController implements GraphLibrary {
     public String shortestPath(Grafo graph, Vertice v1, Vertice v2) {
         StringBuilder saida = new StringBuilder();
         PriorityQueue<Vertice> fila = new PriorityQueue<>();
-        Vertice[] distancias = new Vertice[graph.getSize()];
+        Vertice[] distancias = new Vertice[graph.getSize() + 1];
 
         saida.append(v1.getId());
 
@@ -580,7 +575,7 @@ public class GrafoController implements GraphLibrary {
     /**
      * Inicia o array de distâncias com vértices.
      *
-     * @param distancias
+     * @param distancias Array de distâncias que será preenchido com novos vértices.
      */
     private void setDistancias(Vertice[] distancias) {
         for (int i = ZERO; i < distancias.length; i++) {

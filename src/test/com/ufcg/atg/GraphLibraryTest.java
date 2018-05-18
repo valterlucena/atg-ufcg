@@ -87,9 +87,74 @@ public class GraphLibraryTest {
         String list = "{1=[2, 5], 2=[1, 5], 3=[4, 5], 4=[3, 5], 5=[1, 2, 3, 4]}";
         Assert.assertEquals(list, controller.graphRepresentation(grafo, "AL"));
         Assert.assertEquals(esperada, controller.graphRepresentation(grafo, "AM"));
-
-
     }
 
+    @Test
+    public void shortestPath() {
+        Grafo grafo = controller.readWeightedGraph("src/test/resources/entrada.txt");
 
+        Vertice verticeInicial = grafo.getVertices().get(0);
+
+        // TESTE 1
+        Vertice verticeFinal = grafo.getVertices().get(4);
+        String shortestPathResult = controller.shortestPath(grafo, verticeInicial, verticeFinal);
+
+        Assert.assertEquals("1 2 5", shortestPathResult);
+
+        // TESTE 2
+        verticeFinal = grafo.getVertices().get(3);
+        shortestPathResult = controller.shortestPath(grafo, verticeInicial, verticeFinal);
+
+        Assert.assertEquals("1 2 5 3 4", shortestPathResult);
+
+        // TESTE 3
+        verticeFinal = grafo.getVertices().get(1);
+        shortestPathResult = controller.shortestPath(grafo, verticeInicial, verticeFinal);
+
+        Assert.assertEquals("1 2", shortestPathResult);
+
+        // TESTE 4
+        verticeInicial = grafo.getVertices().get(1);
+        verticeFinal = grafo.getVertices().get(3);
+        shortestPathResult = controller.shortestPath(grafo, verticeInicial, verticeFinal);
+
+        Assert.assertEquals("2 5 3 4", shortestPathResult);
+
+        // TESTE 5
+        verticeInicial = grafo.getVertices().get(3);
+        verticeFinal = grafo.getVertices().get(2);
+        shortestPathResult = controller.shortestPath(grafo, verticeInicial, verticeFinal);
+
+        Assert.assertEquals("4 3", shortestPathResult);
+    }
+
+    @Test
+    public void BFS() {
+        Grafo grafo = controller.readGraph("src/test/resources/entrada.txt");
+
+        Vertice verticeInicial = grafo.getVertices().get(0);
+
+        // TESTE 1
+        String BFSResult = controller.BFS(grafo, verticeInicial);
+
+        String realBFS = "1 - 0 -" + System.lineSeparator() +
+                "2 - 1 1" + System.lineSeparator()+
+                "3 - 2 5" + System.lineSeparator()+
+                "4 - 2 5" + System.lineSeparator()+
+                "5 - 1 1" + System.lineSeparator();
+
+        Assert.assertEquals(realBFS, BFSResult);
+
+        // TESTE 2
+        verticeInicial = grafo.getVertices().get(2);
+        BFSResult = controller.BFS(grafo, verticeInicial);
+
+        realBFS = "1 - 2 5" + System.lineSeparator() +
+                "2 - 2 5" + System.lineSeparator()+
+                "3 - 0 -" + System.lineSeparator()+
+                "4 - 1 3" + System.lineSeparator()+
+                "5 - 1 3" + System.lineSeparator();
+
+        Assert.assertEquals(realBFS, BFSResult);
+    }
 }
