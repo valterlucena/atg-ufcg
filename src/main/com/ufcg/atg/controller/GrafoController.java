@@ -189,6 +189,7 @@ public class GrafoController implements GraphLibrary {
     }
 
     private String formatMatrixAdj(int[][] matriz) {
+
         return null;
     }
 
@@ -196,13 +197,13 @@ public class GrafoController implements GraphLibrary {
         return null;
     }
 
-    private int[][] matrixAdj(Grafo grafo) {
+    public int[][] matrixAdj(Grafo grafo) {
         int size = this.getVertexNumber(grafo) + 1;
         int[][] matriz = new int[size][size];
         this.iniciaMatriz(grafo, matriz);
         List<Aresta> arestas = grafo.getArestas();
 
-        for (int i = 1; i < size; i++) {
+        for (int i = 1; i <= size; i++) {
             int inicio = arestas.get(i-1).getInicio().getId();
             int fim = arestas.get(i-1).getFim().getId();
             for (int j = 1; j < size; j++) {
