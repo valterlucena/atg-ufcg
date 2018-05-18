@@ -6,6 +6,20 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/com/ufcg/atg/controller/GrafoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/com/ufcg/atg/controller/GrafoController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/com/ufcg/atg/controller/GraphLibrary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/com/ufcg/atg/controller/GraphLibrary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/atg-ufcg/controller/GrafoController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/atg-ufcg/controller/GraphLibrary.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/atg-ufcg/controller/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/atg-ufcg/grafo/Aresta.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/atg-ufcg/grafo/Grafo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/atg-ufcg/grafo/Vertice.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/atg-ufcg/main/com/ufcg/atg/controller/GrafoController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/atg-ufcg/main/com/ufcg/atg/controller/GrafoController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/atg-ufcg/main/com/ufcg/atg/controller/GraphLibrary.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/atg-ufcg/main/com/ufcg/atg/controller/GraphLibrary.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/atg-ufcg/main/com/ufcg/atg/grafo/Aresta.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/atg-ufcg/main/com/ufcg/atg/grafo/Aresta.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/atg-ufcg/main/com/ufcg/atg/grafo/Grafo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/atg-ufcg/main/com/ufcg/atg/grafo/Grafo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/atg-ufcg/main/com/ufcg/atg/grafo/Vertice.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/atg-ufcg/main/com/ufcg/atg/grafo/Vertice.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/atg-ufcg/test/com/ufcg/atg/GraphLibraryTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/atg-ufcg/test/com/ufcg/atg/GraphLibraryTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/com/ufcg/atg/controller/GrafoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/com/ufcg/atg/controller/GrafoController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/com/ufcg/atg/GraphLibraryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/com/ufcg/atg/GraphLibraryTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -28,6 +42,23 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="3795">
               <caret line="277" selection-start-line="277" selection-end-line="284" selection-end-column="7" />
+      <file leaf-file-name="GraphLibraryTest.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/com/ufcg/atg/GraphLibraryTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="162">
+              <caret line="66" column="50" lean-forward="true" selection-start-line="66" selection-start-column="50" selection-end-line="66" selection-end-column="50" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GrafoController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/com/ufcg/atg/controller/GrafoController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3145">
+              <caret line="203" column="28" lean-forward="true" selection-start-line="203" selection-start-column="28" selection-end-line="203" selection-end-column="28" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -45,6 +76,11 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="285">
               <caret line="19" column="40" lean-forward="true" selection-start-line="19" selection-start-column="40" selection-end-line="19" selection-end-column="40" />
+      <file leaf-file-name="Grafo.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/com/ufcg/atg/grafo/Grafo.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-913">
+              <caret line="14" column="22" lean-forward="true" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#4730#4731#0" expanded="true" />
@@ -81,6 +117,11 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="497">
               <caret line="56" column="6" selection-start-line="56" selection-start-column="6" selection-end-line="56" selection-end-column="6" />
+      <file leaf-file-name="GraphLibrary.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/com/ufcg/atg/controller/GraphLibrary.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="20" column="21" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -107,6 +148,7 @@
       <find>getAdj</find>
       <find>cont</find>
       <find>dfs</find>
+      <find>0</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -136,6 +178,9 @@
         <option value="$PROJECT_DIR$/src/main/com/ufcg/atg/controller/GrafoController.java" />
         <option value="$PROJECT_DIR$/src/main/com/ufcg/atg/controller/GrafoController.java" />
         <option value="$PROJECT_DIR$/src/main/com/ufcg/atg/controller/GraphLibrary.java" />
+        <option value="$PROJECT_DIR$/src/controller/Main.java" />
+        <option value="$PROJECT_DIR$/src/main/com/ufcg/atg/controller/GraphLibrary.java" />
+        <option value="$PROJECT_DIR$/src/main/com/ufcg/atg/controller/GrafoController.java" />
         <option value="$PROJECT_DIR$/src/test/com/ufcg/atg/GraphLibraryTest.java" />
       </list>
     </option>
@@ -161,6 +206,12 @@
     <option name="y" value="23" />
     <option name="width" value="1319" />
     <option name="height" value="773" />
+    <option name="x" value="235" />
+    <option name="y" value="234" />
+    <option name="width" value="1054" />
+    <option name="height" value="731" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -209,6 +260,7 @@
               <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="atg" type="462c0819:PsiDirectoryNode" />
               <item name="controller" type="462c0819:PsiDirectoryNode" />
+              <item name="grafo" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="atg-ufcg" type="b2602c69:ProjectViewProjectNode" />
@@ -220,6 +272,7 @@
             <path>
               <item name="atg-ufcg" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="atg" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -227,6 +280,7 @@
       </pane>
       <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="AndroidView" />
       <pane id="PackagesPane" />
     </panes>
@@ -557,15 +611,34 @@
   </component>
   <component name="TestHistory">
     <history-entry file="GraphLibraryTest - 2018.05.17 at 20h 56m 12s.xml">
-      <configuration name="GraphLibraryTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="GraphLibraryTest - 2018.05.17 at 20h 57m 05s.xml">
-      <configuration name="GraphLibraryTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="GraphLibraryTest - 2018.05.17 at 21h 02m 03s.xml">
-      <configuration name="GraphLibraryTest" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="GraphLibraryTest - 2018.05.17 at 22h 12m 17s.xml">
+      <configuration name="GraphLibraryTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="GraphLibraryTest - 2018.05.18 at 00h 42m 39s.xml">
+      <configuration name="GraphLibraryTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="GraphLibraryTest - 2018.05.18 at 00h 47m 14s.xml">
+      <configuration name="GraphLibraryTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="GraphLibraryTest - 2018.05.18 at 00h 51m 17s.xml">
+      <configuration name="GraphLibraryTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="GraphLibraryTest - 2018.05.18 at 00h 56m 57s.xml">
+      <configuration name="GraphLibraryTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="GraphLibraryTest - 2018.05.18 at 00h 57m 29s.xml">
+      <configuration name="GraphLibraryTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="GraphLibraryTest - 2018.05.18 at 00h 57m 59s.xml">
+      <configuration name="GraphLibraryTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="GraphLibraryTest - 2018.05.18 at 00h 59m 20s.xml">
+      <configuration name="GraphLibraryTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="GraphLibraryTest - 2018.05.18 at 00h 59m 41s.xml">
+      <configuration name="GraphLibraryTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="GraphLibraryTest - 2018.05.18 at 01h 01m 23s.xml">
       <configuration name="GraphLibraryTest" configurationId="JUnit" />
     </history-entry>
     <history-entry file="GraphLibraryTest - 2018.05.17 at 22h 49m 44s.xml">
@@ -589,6 +662,7 @@
   </component>
   <component name="TimeTrackingManager">
     <option name="totallyTimeSpent" value="16171000" />
+    <option name="totallyTimeSpent" value="18881000" /
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -658,6 +732,41 @@
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="bottom" id="Message" order="4" />
       <window_info anchor="right" id="Theme Preview" order="5" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info anchor="right" id="Palette" order="6" />
+      <window_info anchor="bottom" id="TODO" order="10" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.3290938" />
+      <window_info anchor="right" id="Palette&#9;" order="2" />
+      <window_info id="Image Layers" order="3" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
+      <window_info anchor="right" id="Maven Projects" order="0" />
+      <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="2" />
+      <window_info active="true" anchor="bottom" id="Run" order="6" visible="true" weight="0.31160572" />
+      <window_info anchor="bottom" id="Terminal" order="3" />
+      <window_info id="Capture Tool" order="0" />
+      <window_info id="Designer" order="1" />
+      <window_info content_ui="combo" id="Project" order="6" visible="true" weight="0.23718888" />
+      <window_info anchor="right" id="Database" order="3" />
+      <window_info id="Structure" order="7" side_tool="true" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="8" weight="0.25" />
+      <window_info id="UI Designer" order="2" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info id="Favorites" order="4" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
+      <window_info anchor="bottom" id="FindBugs-IDEA" order="0" />
+      <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
+      <window_info anchor="right" id="Commander" order="7" weight="0.4" />
+      <window_info id="Nl-Palette" order="5" />
+      <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="Properties" order="1" />
+      <window_info anchor="bottom" id="Message" order="4" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="9" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="5" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -898,6 +1007,34 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3795">
           <caret line="277" selection-start-line="277" selection-end-line="284" selection-end-column="7" />
+    <entry file="file://$PROJECT_DIR$/src/controller/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="5" column="19" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/entrada/entrada.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="6" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/com/ufcg/atg/controller/GraphLibrary.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="20" column="21" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/com/ufcg/atg/grafo/Grafo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-913">
+          <caret line="14" column="22" lean-forward="true" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -919,6 +1056,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="297">
           <caret line="26" column="19" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="19" />
+    <entry file="file://$PROJECT_DIR$/src/main/com/ufcg/atg/controller/GrafoController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3145">
+          <caret line="203" column="28" lean-forward="true" selection-start-line="203" selection-start-column="28" selection-end-line="203" selection-end-column="28" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -960,6 +1101,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
           <caret line="19" column="40" lean-forward="true" selection-start-line="19" selection-start-column="40" selection-end-line="19" selection-end-column="40" />
+    <entry file="file://$PROJECT_DIR$/src/test/com/ufcg/atg/GraphLibraryTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="66" column="50" lean-forward="true" selection-start-line="66" selection-start-column="50" selection-end-line="66" selection-end-column="50" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
