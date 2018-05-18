@@ -14,10 +14,10 @@ public class GraphLibraryTest {
     @Test
     public void getMeanEdgeTest() {
         Grafo grafo = new Grafo();
-        Vertice vertice1 = grafo.addVertice(1);
-        Vertice vertice2 = grafo.addVertice(2);
-        Vertice vertice3 = grafo.addVertice(3);
-        Vertice vertice4 = grafo.addVertice(4);
+        Vertice vertice1 = grafo.criaVertice(1);
+        Vertice vertice2 = grafo.criaVertice(2);
+        Vertice vertice3 = grafo.criaVertice(3);
+        Vertice vertice4 = grafo.criaVertice(4);
 
         grafo.addAresta(vertice1, vertice2, 0);
         grafo.addAresta(vertice2, vertice4, 0);
@@ -34,10 +34,10 @@ public class GraphLibraryTest {
     @Test
     public void getVertexNumberTest() {
         Grafo grafo = new Grafo();
-        Vertice vertice1 = grafo.addVertice(1);
-        Vertice vertice2 = grafo.addVertice(2);
-        Vertice vertice3 = grafo.addVertice(3);
-        Vertice vertice4 = grafo.addVertice(4);
+        Vertice vertice1 = grafo.criaVertice(1);
+        Vertice vertice2 = grafo.criaVertice(2);
+        Vertice vertice3 = grafo.criaVertice(3);
+        Vertice vertice4 = grafo.criaVertice(4);
 
         grafo.addAresta(vertice1, vertice2, 0);
         grafo.addAresta(vertice2, vertice4, 0);

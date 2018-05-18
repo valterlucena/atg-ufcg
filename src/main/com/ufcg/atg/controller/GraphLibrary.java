@@ -46,6 +46,12 @@ public interface GraphLibrary {
 
     String DFS(Grafo grafo, int vertice);
 
+    /**
+     * Informa se é o grafo é conectado ou não, verificando se existem
+     * caminhos entre quaisquer dois vértices que pertencem ao grafo.
+     * @param grafo Grafo cuja conectividade será verificada.
+     * @return Boolean informando se o grafo é conectado.
+     */
     boolean connected(Grafo grafo);
 
     /**
