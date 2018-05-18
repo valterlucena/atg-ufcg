@@ -183,11 +183,30 @@ public class GrafoController implements GraphLibrary {
         if (type.equalsIgnoreCase(MATRIZADJACENCIA)) {
             int[][] matrizAdj = this.matrixAdj(grafo);
             result = this.formatMatrixAdj(matrizAdj);
+
         } else if (type.equalsIgnoreCase(LISTAADJACENCIA)) {
-            //Map listaAdj = this.listAdj(grafo);
-            //result = this.formatListAdj(listaAdj);
-            return null;
+            result = listAdj(grafo).toString();
+
         } return result;
+    }
+
+    public String graphRepresentacion(Grafo grafo, String type, boolean peso) {
+        String result = "";
+
+        if (peso) {
+
+            if (type.equalsIgnoreCase(MATRIZADJACENCIA)) {
+                double[][] pesos = this.matrizAdjPeso(grafo);
+                result = this.formatMatrizPeso(pesos, grafo);
+
+            } else if (type.equalsIgnoreCase(LISTAADJACENCIA)) {
+                Map mapa = this.listAdjPeso(grafo);
+                result = mapa.toString();
+            }
+        } else {
+            result = this.graphRepresentation(grafo, type);
+        }
+        return result;
     }
 
     /***
@@ -211,16 +230,6 @@ public class GrafoController implements GraphLibrary {
     }
 
     /***
-     * Responsável por formatar a saída da lista de adjacência.
-     * @param mapa
-     * @return
-     */
-    public String formatListAdj(Map mapa) {
-       return null;
-    }
-
-
-    /***
      * Gera a matriz de adjacência do grafo.
      * @param grafo
      * @return
@@ -241,6 +250,34 @@ public class GrafoController implements GraphLibrary {
         }
 
         return matriz;
+    }
+
+    private double[][] matrizAdjPeso(Grafo grafo) {
+
+        List<Aresta> arestas = grafo.getArestas();
+        int size = this.getVertexNumber(grafo);
+        int[][] m = this.matrixAdj(grafo);
+        double[][] pesos = new double[size][size];
+        for (int i = 1; i <= size; i++) {
+            for (int j = 1; j <= size; j++) {
+                if (m[i][j] == 1) {
+                    pesos[i-1][j-1] = arestas.get(i).getPeso();
+                }
+            }
+        } return pesos;
+
+
+    }
+
+    private String formatMatrizPeso(double[][] pesos, Grafo grafo) {
+        String result = "";
+        result += "   1   2   3   4   5" + "\n";
+        for (int i = 0; i < grafo.getVertices().size(); i++) {
+            result += (i+1) + " ";
+            for (int j = 0; j < pesos.length; j++) {
+                result += pesos[i][j] + " ";
+            } result += "\n";
+        } return result;
     }
 
     /**
@@ -284,7 +321,7 @@ public class GrafoController implements GraphLibrary {
      * @param grafo
      * @return
      */
-    public Map listAdj(Grafo grafo) {
+    private Map listAdj(Grafo grafo) {
         List<Aresta> arestas = grafo.getArestas();
         int numeroVertices = this.getVertexNumber(grafo);
 
@@ -295,29 +332,55 @@ public class GrafoController implements GraphLibrary {
         for (int i = 0; i < numeroVertices; i++) {
 
             List aux = new ArrayList();
-            //aux.add(arrayVertices[i].getId());
+
             for (int j = 0; j < arestas.size(); j++) {
 
                 int inicio = arestas.get(j).getInicio().getId();
                 int fim = arestas.get(j).getFim().getId();
 
                 if (arrayVertices[i].getId() == inicio) {
-                    //map.put(arrayVertices[i], fim);
                     aux.add(fim);
                 } else if (arrayVertices[i].getId() == fim) {
-                    //map.put(arrayVertices[i], inicio);
-
                     aux.add(inicio);
                 }
             }
 
             Collections.sort(aux);
             map.put(arrayVertices[i], aux);
-            //listaAdj.add(aux);
+
         }
         return map;
-        //return listaAdj;
     }
+
+    private Map listAdjPeso(Grafo grafo) {
+        List<Aresta> arestas = grafo.getArestas();
+        int numeroVertices = this.getVertexNumber(grafo);
+
+        Map map = new HashMap();
+        List listaAdj = new ArrayList<>();
+        Vertice[] arrayVertices = this.criaArrayVertices(grafo);
+
+        for (int i = 0; i < numeroVertices; i++) {
+
+            List aux = new ArrayList();
+            for (int j = 0; j < arestas.size(); j++) {
+
+                int inicio = arestas.get(j).getInicio().getId();
+                int fim = arestas.get(j).getFim().getId();
+
+                if (arrayVertices[i].getId() == inicio) {
+                    aux.add(fim + "(" + arestas.get(j).getPeso() + ")");
+                } else if (arrayVertices[i].getId() == fim) {
+                    aux.add(inicio + "(" + arestas.get(j).getPeso() + ")");
+                }
+            }
+
+            Collections.sort(aux);
+            map.put(arrayVertices[i], aux);
+        }
+        return map;
+    }
+
 
 
     /**
