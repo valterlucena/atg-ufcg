@@ -1,4 +1,3 @@
-
 package main.com.ufcg.atg.controller;
 
 import main.com.ufcg.atg.grafo.Vertice;
@@ -7,8 +6,15 @@ import main.com.ufcg.atg.grafo.Grafo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.lang.reflect.Array;
-import java.util.*;
+import java.util.Scanner;
+import java.util.Collections;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+import java.util.Queue;
+import java.util.PriorityQueue;
 
 public class GrafoController implements GraphLibrary {
 
@@ -35,7 +41,7 @@ public class GrafoController implements GraphLibrary {
         Scanner leitor = getScanner(path);
         int quantidadeDeVertices = Integer.valueOf(leitor.nextLine());
         Grafo grafo = new Grafo();
-        grafo.setSize(quantidadeDeVertices);
+        grafo.criaVertices(quantidadeDeVertices);
 
         while (leitor.hasNext()) {
             String arestaAtual = leitor.nextLine();
@@ -45,7 +51,7 @@ public class GrafoController implements GraphLibrary {
             int fimId = Integer.parseInt(argumentos[1]);
             double peso = isWeighted ? Double.parseDouble(argumentos[2]) : ZERO;
 
-            grafo.addAresta(grafo.addVertice(inicioId), grafo.addVertice(fimId), peso);
+            grafo.addAresta(grafo.criaVertice(inicioId), grafo.criaVertice(fimId), peso);
         }
 
         return grafo;
@@ -67,7 +73,7 @@ public class GrafoController implements GraphLibrary {
         for (Vertice vertice: grafo.getVertices()) {
             sum += this.getVertexDegree(grafo, vertice);
         }
-        return sum / this.getVertexNumber(grafo);
+        return sum / (float) this.getVertexNumber(grafo);
     }
 
     private int getVertexDegree(Grafo grafo, Vertice vertice) {
@@ -93,7 +99,30 @@ public class GrafoController implements GraphLibrary {
 
     @Override
     public boolean connected(Grafo grafo) {
-        return false;
+        boolean[] visitados = new boolean[grafo.getSize()+1];
+        List<Vertice> vertices = grafo.getVertices();
+        if (vertices.size() > 1) { // trivialmente, um grafo nulo ou com apenas um vertice é conectado
+            Vertice primeiro = vertices.get(1);
+            this.visita(primeiro, visitados);
+            for (int i = 1; i < visitados.length; i++) {
+                if (!visitados[i]) return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Marca como visitado um vertice e seus vertices adjacentes.
+     * @param vertice O vértice que está sendo visitado
+     * @param visitados Guarda informações sobre os vértices que foram visitados
+     */
+    private void visita(Vertice vertice, boolean[] visitados) {
+        visitados[vertice.getId()] = true;
+        List<Vertice> adjacentes = vertice.getVerticesAdjacentes();
+        for (Vertice atual: adjacentes) {
+            int idAtual = atual.getId();
+            if (!visitados[idAtual]) visita(atual, visitados);
+        }
     }
 
     @Override
@@ -143,17 +172,18 @@ public class GrafoController implements GraphLibrary {
 
             saida.append(NOVA_LINHA);
         }
-
         return saida.toString();
     }
 
     /**
-     * Popula o Array de pais com posições vazias.
+     * Popula o 
+     
+    de pais com posições vazias.
      *
      * @param pai
      */
     private void setPai(Vertice[] pai) {
-        for (int i = 0; i < pai.length; i++) {
+        for (int i = ZERO; i < pai.length; i++) {
             pai[i] = null;
         }
     }
@@ -165,14 +195,44 @@ public class GrafoController implements GraphLibrary {
      * @param nivel
      */
     private void setNivel(int[] nivel) {
-        for (int i = 0; i < nivel.length; i++) {
+        for (int i = ZERO; i < nivel.length; i++) {
             nivel[i] = INFINITO;
         }
     }
 
     @Override
-    public String DFS(Grafo grafo, int vertice) {
-        return null;
+    public String DFS(Grafo graph, Vertice vertex) {
+        return DFS(graph, vertex, null, ZERO, new HashSet<>());
+    }
+
+    /**
+     * Método auxiliar que implementa a lógica da busca em profundidade.
+     * @param graph
+     *      Grafo a ser percorrido
+     * @param vertex
+     *      Vértice inicial
+     * @param parent
+     *      Vértice pai
+     * @param depth
+     *      Profundidade do vértice
+     * @param visited
+     *      Conjunto de todos os vértices que já foram visitados
+     * @return
+     */
+    private String DFS(Grafo graph, Vertice vertex, Vertice parent, int depth, Set<Vertice> visited) {
+        StringBuilder output = new StringBuilder();
+        output.append(vertex.getId());
+        output.append(": ");
+        output.append(depth);
+        output.append(parent == null ? " -" : " " + parent.getId());
+        output.append(NOVA_LINHA);
+        visited.add(vertex);
+        for (Vertice current: vertex.getVerticesAdjacentes()) {
+            if (!visited.contains(current)) {
+                output.append(DFS(graph, current, vertex, depth + 1, visited));
+            }
+        }
+        return output.toString();
     }
 
     @Override
@@ -334,7 +394,6 @@ public class GrafoController implements GraphLibrary {
             List aux = new ArrayList();
 
             for (int j = 0; j < arestas.size(); j++) {
-
                 int inicio = arestas.get(j).getInicio().getId();
                 int fim = arestas.get(j).getFim().getId();
 
@@ -381,12 +440,10 @@ public class GrafoController implements GraphLibrary {
         return map;
     }
 
-
-
     /**
-     * Gera o menor caminho.
-     * @param grafo
-     * @return
+     * Método que informa a árvore mínima geradora
+     * @param grafo Grafo que terá sua árvore gerada
+     * @return String com o vértice inicial, final, e o peso entre os dois vértices.
      */
     @Override
     public String mst(Grafo grafo) {
@@ -523,7 +580,7 @@ public class GrafoController implements GraphLibrary {
      * @param distancias
      */
     private void setDistancias(Vertice[] distancias) {
-        for (int i = 0; i < distancias.length; i++) {
+        for (int i = ZERO; i < distancias.length; i++) {
             distancias[i] = new Vertice(i);
         }
     }
