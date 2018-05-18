@@ -90,9 +90,29 @@ public class GraphLibraryTest {
     }
 
     @Test
-    public void shortestPath() {
-        Grafo grafo = controller.readWeightedGraph("src/test/resources/entrada.txt");
+    public void repreGraphPesoTest() {
+        Grafo grafo = controller.readWeightedGraph("entrada/entrada.txt");
+        GrafoController c = new GrafoController();
 
+        String esperada =  "   1   2   3   4   5" + "\n"+
+                            "1 0.0 0.2 0.0 0.0 0.2 "+ "\n"+
+                            "2 5.0 0.0 0.0 0.0 5.0 "+ "\n"+
+                            "3 0.0 0.0 0.0 -9.5 -9.5 "+ "\n"+
+                            "4 0.0 0.0 2.3 0.0 2.3 "+ "\n"+
+                            "5 1.0 1.0 1.0 1.0 0.0 "+ "\n";
+
+        String saida = controller.graphRepresentation(grafo, "AM");
+        Assert.assertEquals(esperada, saida);
+
+        String lista = controller.graphRepresentation(grafo, "AL");
+        String saida2 = "{1=[2(0.1), 5(1.0)], 2=[1(0.1), 5(0.2)], 3=[4(-9.5), 5(5.0)], 4=[3(-9.5), 5(2.3)], 5=[1(1.0), 2(0.2), 3(5.0), 4(2.3)]}";
+        Assert.assertEquals(lista, saida2);
+
+    }
+
+    @Test
+    public void shortestPath() {
+        Grafo grafo = controller.readWeightedGraph("src/test/resources/entradaComPeso.txt");
         Vertice verticeInicial = grafo.getVertices().get(0);
 
         // TESTE 1
