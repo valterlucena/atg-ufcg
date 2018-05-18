@@ -1,8 +1,9 @@
-package controller;
 
-import grafo.Aresta;
-import grafo.Grafo;
-import grafo.Vertice;
+package main.com.ufcg.atg.controller;
+
+import main.com.ufcg.atg.grafo.Vertice;
+import main.com.ufcg.atg.grafo.Aresta;
+import main.com.ufcg.atg.grafo.Grafo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -94,16 +95,6 @@ public class GrafoController implements GraphLibrary {
         return false;
     }
 
-    /**
-     * Percorre o grafo utilizando a busca em largura, dado um vértice inicial
-     * fornecido.
-     *
-     * @param grafo
-     * @param verticeInicial
-     *
-     * @return String representando a árvore de busca gerada, com o nível de cada vértice na árvore.
-     * A árvore gerada é descrita informando o pai de cada vértice e seu nível na String de saída.
-     */
     @Override
     public String BFS(Grafo grafo, Vertice verticeInicial) {
         StringBuilder saida = new StringBuilder();
