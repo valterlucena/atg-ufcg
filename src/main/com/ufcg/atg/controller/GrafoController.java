@@ -197,9 +197,10 @@ public class GrafoController implements GraphLibrary {
     private String DFS(Grafo graph, Vertice vertex, Vertice parent, int depth, Set<Vertice> visited) {
         StringBuilder output = new StringBuilder();
         output.append(vertex.getId());
-        output.append(" - ");
-        output.append(parent == null ? "- " : parent.getId() + " ");
+        output.append(": ");
         output.append(depth);
+        output.append(parent == null ? " -" : " " + parent.getId());
+        output.append(NOVA_LINHA);
         visited.add(vertex);
         for (Vertice current: vertex.getVerticesAdjacentes()) {
             if (!visited.contains(current)) {
